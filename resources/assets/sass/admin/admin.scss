@@ -1,0 +1,50 @@
+// Fonts
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "../variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
+// SB Admin
+@import "sb-admin/sb-admin";
+
+/**************************/
+/** Custom CSS for admin **/
+/**************************/
+
+//html, body {
+//  height: 100%;
+//  width: 100%;
+//  background: #FFFFFF;
+//}
+
+//#main {
+//  background: #FFFFFF;
+//  margin-top: 5rem;
+//  padding: 5rem;
+//}
+
+
+/**********************************/
+/** Custom Imported CSS per Page **/
+/**********************************/
+
+@import "user";
+
+// booze types
+.admin-booze, .admin-news, .admin-products {
+  table img {
+    width: 150px;
+    height: auto;
+  }
+
+  table .desc {
+    word-break: break-all;
+    width: 30%;
+  }
+}

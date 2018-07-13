@@ -1,0 +1,515 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
+/**************************/
+/*** Custom CSS for app ***/
+/**************************/
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  position: relative;
+}
+
+///*Medium devices (tablets, less than 992px)*/
+//@media (max-height: 600px) {
+//  body {
+//    height: auto;
+//  }
+//}
+
+// navbar
+nav {
+  border-top: 5px solid $primary-color;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.container-fluid {
+  padding: 0;
+}
+.row {
+  margin: 0;
+}
+
+.brand {
+  max-width: 150px;
+  margin: -1rem 0 0 0;
+}
+
+.search, .search2 {
+  border: 1px solid #000000;
+}
+
+.search input, .search button, .search2 input, .search2 button {
+  border: none;
+  background: transparent;
+}
+
+.search2 {
+  display: none;
+}
+
+.required-marker {
+  color: $primary-color !important;
+}
+
+.iconRed {
+  color: $primary-color !important;
+}
+.iconRed .fa {
+  font-size: 1.3rem;
+}
+
+.cBtn {
+  background: $primary-color;
+  color: $secondary-color;
+}
+
+.cBtn:hover  {
+  cursor:pointer;
+  background: $primary-color;
+  color: $secondary-color;
+}
+
+.cBtn-dark {
+  background: #000;
+  color: #fff;
+}
+
+.cBtn-dark:hover {
+  cursor:pointer;
+  background: #000;
+  color: #fff;
+}
+
+.dup2 {
+  display: none;
+}
+
+.dropdown-menu {
+  text-align: center;
+  background: #93201B;
+  /*color: #FFFFFF;*/
+}
+
+.dropdown-menu a {
+  color: #FFFFFF;
+  border-top: 1px solid;
+}
+
+.dropdown-menu a:nth-of-type(1) {
+  border-top: none;
+}
+
+.dropdown-menu a:hover {
+  color: #000000;
+}
+
+#navbarToggler{
+  padding:10px 0;
+}
+
+
+.dropdown-menu::after{
+  content: "";
+  width:0;
+  height: 0;
+  border-bottom: 1em solid #93201b;
+  border-right: 1em solid transparent;
+  border-left: 1em solid transparent;
+  position: absolute;
+  top: -0.6rem;
+  right: 0;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {
+  .search {
+    display: none;
+  }
+
+  .search2 {
+    display: flex;
+  }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {
+  .user {
+    display: inline !important;
+  }
+
+  .dropdown-menu::after{
+    top: 2rem;
+    left: 0;
+  }
+}
+
+// Large devices (desktops, less than 1200px)
+//@media (max-width: 1199px) {
+@media (max-width: 1234px) {
+  .dup1 {
+    display: none;
+  }
+
+  .dup2 {
+    display: block;
+  }
+}
+
+// main container
+#app {
+  min-height:100%;
+  //height: 100%;
+  position:relative;
+}
+
+// content
+.content {
+  padding-bottom: 70px;
+}
+
+//footer
+footer {
+  background: #000000;
+  color: $secondary-color;
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+}
+
+.footer-left ul {
+  list-style-type: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0 0 0;
+  margin: 0;
+}
+
+.footer-left ul li {
+  margin-right: 0.5rem;
+}
+
+.footer-left ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-right ul {
+  list-style-type: none;
+  //display: block;
+  margin: 0;
+  padding: 1rem 0;
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767px) {
+  .footer-left {
+    display: none !important;
+  }
+
+  .footer-right {
+    text-align: left !important;
+  }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {
+  .footer-left ul li:not(:nth-of-type(1)){
+    display: none !important;
+  }
+  .footer-left ul li {
+    display: block;
+  }
+}
+
+
+/**************************/
+/** Custom SCSS per page **/
+/**************************/
+.page-title {
+  background: $primary-color;
+  color: $secondary-color;
+
+  h3 {
+    font-weight: bold;
+    padding: 12px 0;
+    margin: 0;
+  }
+}
+
+.Shared-contact .main,
+.shared-news .main,
+.Shared-about .main,
+.shared-booze .main,
+.shared-products .main
+{
+  padding: 5% 15px;
+}
+
+// index
+@import "index";
+
+// news
+@import "news";
+
+// booze
+@import "booze";
+
+// contact us
+.Shared-contact {
+  .content {
+    padding-bottom: 10rem;
+  }
+}
+
+// products
+.shared-products, .Shared-index {
+
+  .image {
+    height: 200px;
+  }
+  .prb-row {
+    .col:nth-of-type(1) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .col:nth-of-type(2) {
+      padding-right: 0;
+    }
+
+    .price {
+      margin-bottom: -5px;
+    }
+  }
+
+}
+// product details
+.shared-product-details {
+  .r-header {
+    border-bottom: 5px solid #E5E5E5;
+    padding-bottom: 10px;
+  }
+
+  .vue-star-rating-rating-text, .rating-help-block {
+    display: none;
+  }
+
+  .price-container {
+    font-size: 1.5em;
+  }
+
+  .alert-modal-sm .close {
+    cursor: pointer;
+    color: #fff;
+    text-shadow: none;
+    opacity: 1;
+  }
+}
+
+
+
+// profile
+.shared-profile {
+  .grouping {
+    border: 1px solid;
+    padding: 2%;
+  }
+  .pd {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+.shared-profile-change-password {
+  .main {
+    min-height: 28.2em;
+  }
+}
+
+// inventory
+.shared-inventory {
+  .image {
+    height: 200px;
+    position: relative;
+  }
+  .prb-row {
+    .col:nth-of-type(1) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .col:nth-of-type(2) {
+      padding-right: 0;
+    }
+
+    .price {
+      margin-bottom: -5px;
+    }
+  }
+  .edit-delete {
+    position: absolute;
+    right: 0;
+
+    a {
+      color: #000;
+      background: #fff;
+    }
+  }
+  .product-count {
+    position: absolute;
+    left: 0;
+  }
+
+  .delete-x {
+    cursor: pointer;
+  }
+
+  #addItemModal {
+    .modal-header {
+      background: #000;
+      color: #fff;
+
+      button {
+        cursor: pointer;
+        color: #fff;
+        opacity: 1;
+        text-shadow: none;
+      }
+    }
+
+  }
+}
+
+// wishlist
+.shared-wishlist {
+  .image {
+    height: 200px;
+    position: relative;
+  }
+  .prb-row {
+    .col:nth-of-type(1) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .col:nth-of-type(2) {
+      padding-right: 0;
+    }
+
+    .price {
+      margin-bottom: -5px;
+    }
+  }
+  .edit-delete {
+    position: absolute;
+    right: 0;
+
+    a {
+      color: #000;
+      background: #fff;
+    }
+  }
+
+  .delete-x {
+    cursor: pointer;
+  }
+}
+
+// carts
+.cart-modal {
+  table td {
+    vertical-align: middle;
+  }
+
+  .total {
+    font-size: 2em;
+    color: $primary-color;
+  }
+
+  .payment_total {
+    color: $primary-color;
+  }
+
+  .delete-x {
+    cursor: pointer;
+  }
+
+  .modal-header {
+    background: #000;
+    color: #fff;
+
+    button {
+      cursor: pointer;
+      color: #fff;
+      opacity: 1;
+      text-shadow: none;
+    }
+  }
+
+  .note {
+    text-align: right;
+    font-size: .9em;
+  }
+
+  #accordion a:hover {
+    text-decoration: none;
+  }
+}
+
+.shared-transaction {
+  #transactionTab {
+    .nav-link.active, .nav-item.show .nav-link {
+      color: $secondary-color !important;
+      background-color: $primary-color !important;
+      border-color: $primary-color !important;
+    }
+    .nav-link {
+      border-color: #000000 !important;
+    }
+    .nav-link:hover, .nav-link:focus {
+      border-color: $primary-color !important;
+    }
+    a, a:hover
+    {
+      color: $secondary-color !important;
+    }
+
+    background: #000000;
+  }
+
+  .tab-content {
+    border: 1px solid $primary-color;
+    padding: 30px 0;
+
+    .amount {
+      color: $primary-color;
+    }
+
+    .wrapper {
+      line-height: 6em;
+    }
+  }
+}
