@@ -15,18 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 // public
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'LandingController@index');
 Auth::routes();
-Route::get('/register-seller', function () {
-	return view('auth.register-seller');
-});
+Route::get('/register-seller', 'LandingController@registerSeller');
 Route::resource('/help', 'ContactUsController');
 Route::post('/ageCheck', 'LandingController@ageChecker');
 
 // Shared auth middleware group
-Route::group(['middleware' => ['auth']], function () {
+	Route::group(['middleware' => ['auth']], function () {
 
 	// Shared pages
 	Route::get('/index', 'Shared\IndexController@index')->name('index');

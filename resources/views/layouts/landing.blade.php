@@ -241,7 +241,8 @@
 
 
     <!-- Age Checker Modal -->
-    <div class="modal fade" id="ageCheckerModal" tabindex="-1" role="dialog" aria-labelledby="ageCheckerModalLabel" aria-hidden="true">
+    @if( !Session::has('user_age') )
+        <div class="modal fade" id="ageCheckerModal" tabindex="-1" role="dialog" aria-labelledby="ageCheckerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content rounded-0">
                 <div class="modal-header rounded-0">
@@ -261,24 +262,9 @@
                             <div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }} col">
                                 <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" class="form-control rounded-0" value="{{ old('dob') }}" required>
                             </div>
-
-                            {{--<div class="form-group{{ $errors->has('month') ? ' has-error' : '' }} col">--}}
-                                {{--<input type="text" id="month" name="month" maxlength="2" placeholder="MM" class="form-control rounded-0" value="{{ old('month') }}" required>--}}
-                            {{--</div>--}}
-                            {{--<span class="col-1 font-weight-bold dot">.</span>--}}
-                            {{--<div class="form-group{{ $errors->has('day') ? ' has-error' : '' }} col">--}}
-                                {{--<input type="text" id="day" name="day" maxlength="2" placeholder="DD" class="form-control rounded-0" value="{{ old('day') }}" required>--}}
-                            {{--</div>--}}
-                            {{--<span class="col-1  font-weight-bold dot">.</span>--}}
-                            {{--<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }} col-4">--}}
-                                {{--<input type="text" id="year" name="year" maxlength="4" placeholder="YYYY" class="form-control rounded-0" value="{{ old('year') }}" required>--}}
-                            {{--</div>--}}
                         </div>
 
                         <div class="row errorDiv mb-3" style="color:red;">
-                            {{--<div class="month" style="display: none;">Month must be 2 digits and Between 1-12.</div>--}}
-                            {{--<div class="day" style="display: none;">Day must be 2 digits and Between 1-31.</div>--}}
-                            {{--<div class="year" style="display: none;">Year must be 4 digits.</div>--}}
                             <div class="dob" style="display: none;">Age must be 18 and above.</div>
 
                         </div>
@@ -289,7 +275,7 @@
             </div>
         </div>
     </div>
-
+    @endif
     <!-- Scripts -->
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.js') }}"></script>
