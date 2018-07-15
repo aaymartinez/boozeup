@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
 	    	$view_name = str_replace('.', '-', $view->getName());
 	    	View::share('view_name', $view_name);
 	    });
+
+	    // Force SSL in production
+	    if ($this->app->environment() == 'production') {
+		    URL::forceScheme('https');
+	    }
     }
 
     /**
