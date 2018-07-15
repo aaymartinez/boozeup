@@ -48,6 +48,6 @@ class IndexController extends Controller
 	    array_multisort($ratings, SORT_DESC, $products);
 	    array_splice($products, 4);
 
-        return view('Shared.index', compact('booze', 'carts', 'products'));
+        return view('shared.index', compact('booze', 'carts', 'products'));
     }
 }
