@@ -73,7 +73,7 @@ class RegisterController extends Controller
     {
     	if ($data['role'] == 2) {
 		    return User::create([
-			    'role_ID' => $data['role'],
+			    'role_id' => $data['role'],
 			    'first_name' => $data['first_name'],
 			    'last_name' => $data['last_name'],
 			    'email' => $data['email'],
@@ -81,7 +81,7 @@ class RegisterController extends Controller
 		    ]);
 	    } else {
 		    return User::create([
-			    'role_ID' => $data['role'],
+			    'role_id' => $data['role'],
 			    'shop_name' => $data['shop_name'],
 			    'email' => $data['email'],
 			    'password' => bcrypt($data['password']),
