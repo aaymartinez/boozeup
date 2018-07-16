@@ -12,15 +12,15 @@ let mix = require('laravel-mix');
  */
 
 // public
-mix.js('resources/assets/js/landing.js', 'public/js').sourceMaps();
+mix.js('resources/assets/js/landing.js', 'public/js');
 
 // shared
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css').sourceMaps();
+   .sass('resources/assets/sass/app.scss', 'public/css');
 
 // admin
 mix.js([
         'resources/assets/js/admin.js',
         'resources/assets/js/sb-admin/sb-admin.js',
     ], 'public/js')
-    .sass('resources/assets/sass/admin/admin.scss', 'public/css').sourceMaps();
+    .sass('resources/assets/sass/admin/admin.scss', 'public/css');
