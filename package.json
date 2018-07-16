@@ -11,8 +11,6 @@
   },
   "devDependencies": {
     "axios": "^0.18",
-    "bootstrap": "^4.0.0",
-    "popper.js": "^1.12",
     "cross-env": "^5.1",
     "jquery": "^3.2",
     "laravel-mix": "^2.0",
@@ -20,7 +18,9 @@
     "vue": "^2.5.7"
   },
   "dependencies": {
-   "font-awesome": "^4.7.0",
-   "vue-star-rating": "^1.6.0"
+    "bootstrap": "^4.0.0",
+    "popper.js": "^1.12",
+    "font-awesome": "^4.7.0",
+    "vue-star-rating": "^1.6.0"
   }
 }
