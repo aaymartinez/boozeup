@@ -17,13 +17,17 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-    	$transactions = Transaction::all()
-	                              ->where('users_id', '=', Auth::id());
+    	$transactions = Transaction::all()->where('users_id', '=', Auth::id());
+	    $completed = Transaction::all()
+	                            ->where('users_id', '=', Auth::id())
+	                            ->where('status', '=', 'Completed')
+	                            ->where('status', '=', 'Cancelled');
 
 	    $carts = Carts::all()->where('users_id', '=', Auth::id())
 	                         ->where('transactions_id', '=', '')
 	                         ->where('bought', '=', false);
-        return view('shared.transaction', compact('carts', 'transactions'));
+
+        return view('shared.transaction', compact('carts', 'transactions', 'completed'));
     }
 
     /**

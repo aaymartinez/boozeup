@@ -13722,26 +13722,26 @@ footer {
   padding: 5% 15px;
 }
 
-.Shared-index .upper .banner1 {
+.shared-index .upper .banner1 {
   background: url("/images/featured-carousel_banner1.png") no-repeat;
 }
 
-.Shared-index .upper .banner2 {
+.shared-index .upper .banner2 {
   background: url("/images/featured-carousel_banner2.png") no-repeat;
 }
 
-.Shared-index .upper .banner3 {
+.shared-index .upper .banner3 {
   background: url("/images/featured-carousel_banner3.png") no-repeat;
 }
 
-.Shared-index .upper .carousel .img-container img {
+.shared-index .upper .carousel .img-container img {
   background-size: cover;
   height: 18rem;
   background-position: center;
   position: relative;
 }
 
-.Shared-index .upper .fade-gradient {
+.shared-index .upper .fade-gradient {
   position: absolute;
   top: 0;
   left: 0;
@@ -13755,17 +13755,17 @@ footer {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#00000000);
 }
 
-.Shared-index .middle .box {
+.shared-index .middle .box {
   position: relative;
 }
 
-.Shared-index .middle .box:hover {
+.shared-index .middle .box:hover {
   opacity: 0.5;
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
 
-.Shared-index .middle .text {
+.shared-index .middle .text {
   color: white;
   font-size: 20px;
   position: absolute;
@@ -13777,41 +13777,41 @@ footer {
   opacity: 1;
 }
 
-.Shared-index .lower {
+.shared-index .lower {
   background: #0c0b0b;
   color: #FFFFFF;
 }
 
-.Shared-index .lower ul {
+.shared-index .lower ul {
   padding: 0;
 }
 
-.Shared-index .lower ul li {
+.shared-index .lower ul li {
   list-style: none;
   margin-bottom: 7px;
 }
 
-.Shared-index .lower ul.mode-of-payment li:nth-child(1) {
+.shared-index .lower ul.mode-of-payment li:nth-child(1) {
   background: url("/images/cod_icon.png") no-repeat;
   padding: 3px 20px 3px 60px;
 }
 
-.Shared-index .lower ul.mode-of-payment li:nth-child(2) {
+.shared-index .lower ul.mode-of-payment li:nth-child(2) {
   background: url("/images/maestro_icon.png") no-repeat;
   padding: 3px 20px 3px 60px;
 }
 
-.Shared-index .lower ul.mode-of-payment li:nth-child(3) {
+.shared-index .lower ul.mode-of-payment li:nth-child(3) {
   background: url("/images/mastercard_icon.png") no-repeat;
   padding: 3px 20px 3px 60px;
 }
 
-.Shared-index .lower ul.mode-of-payment li:nth-child(4) {
+.shared-index .lower ul.mode-of-payment li:nth-child(4) {
   background: url("/images/visa_icon.png") no-repeat;
   padding: 3px 20px 3px 60px;
 }
 
-.Shared-index .lower ul.mode-of-payment li:nth-child(5) {
+.shared-index .lower ul.mode-of-payment li:nth-child(5) {
   background: url("/images/amExpress_icon.png") no-repeat;
   padding: 3px 20px 3px 60px;
 }

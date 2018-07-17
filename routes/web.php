@@ -25,7 +25,7 @@ Route::post('/ageCheck', 'LandingController@ageChecker');
 	Route::group(['middleware' => ['auth']], function () {
 
 	// Shared pages
-	Route::get('/index', 'Shared\IndexController@index')->name('index');
+	Route::get('/index', 'Shared\IndexController@index');
 	Route::get('/about', 'Shared\AboutController@index');
 	Route::resource('/contact-us', 'ContactUsController');
 	Route::get('/news', 'Shared\NewsController@index');

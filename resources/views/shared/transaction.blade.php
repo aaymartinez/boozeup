@@ -105,31 +105,31 @@
             </div>
 
             <div class="tab-pane" id="completed" role="tabpanel" aria-labelledby="completed-tab">
-                @foreach($transactions as $transaction)
-                    @if( $transaction->status == 'Completed' || $transaction->status == 'Cancelled' )
-                        <div class="row">
-                            <div class="pl-5">
-                                <div><span class="font-weight-bold">INVOICE NUMBER :</span> #{{ $transaction->id }}</div>
+                @if( $completed->count() != 0 )
+                    @foreach($completed as $transaction)
+                            <div class="row">
+                                <div class="pl-5">
+                                    <div><span class="font-weight-bold">INVOICE NUMBER :</span> #{{ $transaction->id }}</div>
 
-                                @if( $transaction->payment_method == 'bank_deposit' )
-                                    <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Bank Deposit</div>
-                                @elseif( $transaction->payment_method == 'cc' )
-                                    <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Credit Card</div>
-                                @else
-                                    <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Cash on Delivery</div>
-                                @endif
+                                    @if( $transaction->payment_method == 'bank_deposit' )
+                                        <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Bank Deposit</div>
+                                    @elseif( $transaction->payment_method == 'cc' )
+                                        <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Credit Card</div>
+                                    @else
+                                        <div><span class="font-weight-bold">MODE OF PAYMENT :</span> Cash on Delivery</div>
+                                    @endif
 
-                                <div><span class="font-weight-bold">STATUS :</span> {{ $transaction->status }}</div>
-                                <div class="amount"><span class="font-weight-bold">AMOUNT :</span> P {{ number_format($transaction->total_amount, 2) }}</div>
+                                    <div><span class="font-weight-bold">STATUS :</span> {{ $transaction->status }}</div>
+                                    <div class="amount"><span class="font-weight-bold">AMOUNT :</span> P {{ number_format($transaction->total_amount, 2) }}</div>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                    @else
-                        <div class="text-center">
-                            <p>No items yet.</p>
-                        </div>
-                    @endif
-                @endforeach
+                            <hr>
+                    @endforeach
+                @else
+                    <div class="text-center">
+                        <p>No items yet.</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
