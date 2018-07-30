@@ -20,7 +20,7 @@ class ContactUsController extends Controller
     	if ($uri == '/contact-us') {
 		    $carts = Carts::all()->where('users_id', '=', Auth::id());
 
-		    return view('Shared.contact', compact('carts'));
+		    return view('shared.contact', compact('carts'));
 	    } else {
 		    return view('contact');
 	    }
