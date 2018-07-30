@@ -46,16 +46,6 @@ Route::post('/ageCheck', 'LandingController@ageChecker');
 		Route::resource('/inventory', 'Shared\InventoryController');
 	}
 
-
-
-	// Admin pages
-	Route::get('/admin', 'Admin\IndexController@index');
-	Route::resource('/admin/user', 'Admin\UserController');
-	Route::resource('/admin/news', 'Admin\NewsController');
-	Route::resource('/admin/booze', 'Admin\BoozeTypesController');
-	Route::resource('/admin/products', 'Admin\ProductsController');
-
-
 });
 
 // seller
