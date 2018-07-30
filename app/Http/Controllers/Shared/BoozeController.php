@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shared;
 
+use App\BoozeTypes;
 use App\Carts;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,8 @@ class BoozeController extends Controller
 		              ->where('transactions_id', '=', '')
 		              ->where('bought', '=', false);
 
-		return view('shared.booze', compact('carts'));
+		$booze = BoozeTypes::all();
+
+		return view('shared.booze', compact('carts', 'booze'));
 	}
 }
