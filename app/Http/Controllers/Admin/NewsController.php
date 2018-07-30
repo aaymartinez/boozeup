@@ -41,7 +41,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-	    $dir = 'booze-types';
+	    $dir = 'news';
 
         $rules = [
 	        'booze_type_id' => 'required|string',
