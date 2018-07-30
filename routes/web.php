@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-if (env('APP_ENV') === 'production') {
-	URL::forceSchema('http');
-}
-
 
 // public
 Route::get('/', 'LandingController@index');
