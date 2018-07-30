@@ -30,8 +30,8 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane active" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
-                @foreach($transactions as $transaction)
-                    @if( $transaction->status != 'Completed' && $transaction->status != 'Cancelled' )
+                @if( $transaction->count() != 0 )
+                    @foreach($transactions as $transaction)
                         <div class="row">
                             <div class="col-md-6">
                                 <div><span class="font-weight-bold">INVOICE NUMBER :</span> #{{ $transaction->id }}</div>
@@ -96,12 +96,12 @@
                                 </div>
                             </div>
                         </div>
-                    @else
-                        <div class="text-center">
-                            <p>No items yet.</p>
-                        </div>
-                    @endif
-                @endforeach
+                    @endforeach
+                @else
+                    <div class="text-center">
+                        <p>No items yet.</p>
+                    </div>
+                @endif
             </div>
 
             <div class="tab-pane" id="completed" role="tabpanel" aria-labelledby="completed-tab">
