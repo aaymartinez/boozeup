@@ -30,7 +30,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane active" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
-                @if( $transaction->count() != 0 )
+                @if( $transactions->count() != 0 )
                     @foreach($transactions as $transaction)
                         <div class="row">
                             <div class="col-md-6">
