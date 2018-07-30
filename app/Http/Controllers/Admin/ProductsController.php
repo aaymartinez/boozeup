@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\BoozeTypes;
 use App\Http\Controllers\Controller;
-use App\products;
+use App\Products;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,7 @@ class ProductsController extends Controller
     public function index()
     {
     	$products = Products::all();
+
 	    return view('admin.products', compact('products'));
     }
 
