@@ -17,8 +17,6 @@ class RolesResource extends Resource
         return [
 	        'id' => $this->id,
 	        'role'=> $this->role,
-	        'created_at' => $this->created_at,
-	        'updated_at' => $this->updated_at,
         ];
     }
 }
