@@ -20,3 +20,12 @@ use Illuminate\Http\Request;
 //});
 
 Route::apiResource('/user', 'API\UserController');
+Route::apiResource('/boozetype', 'API\BoozeTypesController');
+Route::apiResource('/carts', 'API\CartsController');
+Route::apiResource('/contact-us', 'API\ContactUseController');
+Route::apiResource('/news', 'API\NewsController');
+Route::apiResource('/product', 'API\ProductController');
+Route::apiResource('/product-rating', 'API\ProductRatingController');
+Route::apiResource('/roles', 'API\RolesController');
+Route::apiResource('/transaction', 'API\TransactionController');
+Route::apiResource('/wishlist', 'API\WishlistController');
