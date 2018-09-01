@@ -16,7 +16,7 @@ class CartsResource extends Resource
     {
         return [
 	        'id' => $this->id,
-	        'products_id' => $this->product_id,
+	        'products_id' => $this->products_id,
 	        'users_id' => $this->users_id,
 	        'quantity' => $this->quantity,
 	        'price' => $this->price,
