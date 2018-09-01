@@ -86,6 +86,7 @@ class WishlistController extends Controller
 	{
 		$wishlist->delete();
 
-		return response()->json(null, 204);
+		return response()->json(['status' => 'success'], 204);
+
 	}
 }
