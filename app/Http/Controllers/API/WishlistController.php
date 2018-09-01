@@ -85,9 +85,9 @@ class WishlistController extends Controller
 	public function destroy(Wishlist $wishlist)
 	{
 		$wishlist->delete();
-		
+
 		if($wishlist->delete()) {
-			return $this->response->withItem($wishlist, new  TaskTransformer());
+			return $this->response->withItem($wishlist);
 		} else {
 			return $this->response->errorInternalError('Could not delete a task');
 		}
