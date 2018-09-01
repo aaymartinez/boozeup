@@ -86,12 +86,8 @@ class WishlistController extends Controller
 	{
 		$wishlist->delete();
 
-		if($wishlist->delete()) {
-			return $this->response->withItem($wishlist);
-		} else {
-			return $this->response->errorInternalError('Could not delete a task');
-		}
-
+		//return response()->json(['status' => 'success']);
+		return json_encode('success');
 
 	}
 }
