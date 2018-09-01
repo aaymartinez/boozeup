@@ -50,11 +50,11 @@ class ProductsController extends Controller
 	 *
 	 * @return ProductsResource
 	 */
-	public function show(Products $products)
+	public function show($products)
 	{
-		ProductsResource::withoutWrapping();
+		$p = Products::findOrFail($products);
 
-		return new ProductsResource($products);
+		return new ProductsResource($p);
 	}
 
 	/**

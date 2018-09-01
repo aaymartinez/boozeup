@@ -20,7 +20,7 @@ class UserResource extends Resource
 		    'first_name' => $this->first_name,
 		    'last_name' => $this->last_name,
 		    'email' => $this->email,
-		    'password' => $this->password,
+//		    'password' => $this->password,
 		    'role_id' => $this->role_id,
 		    'mobile_number' => $this->mobile_number,
 		    'birth_date' => $this->birth_date,

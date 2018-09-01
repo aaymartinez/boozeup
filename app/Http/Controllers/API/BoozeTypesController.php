@@ -41,15 +41,15 @@ class BoozeTypesController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\BoozeTypes  $booze
+	 * @param  \App\BoozeTypes id $booze
 	 *
 	 * @return BoozeTypesResource
 	 */
-	public function show(BoozeTypes $booze)
+	public function show($booze)
 	{
-		BoozeTypesResource::withoutWrapping();
+		$b = BoozeTypes::findOrFail($booze);
 
-		return new BoozeTypesResource($booze);
+		return new BoozeTypesResource($b);
 	}
 
 	/**
