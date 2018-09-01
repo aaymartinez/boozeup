@@ -86,11 +86,6 @@ class TransactionController extends Controller
 	 */
 	public function update(Request $request, Transaction $transaction)
 	{
-		// check if currently authenticated user is the owner of the book
-		if ($request->user()->id !== $transaction->users_id) {
-			return response()->json(['error' => 'You can only edit your own transaction.'], 403);
-		}
-
 		$transaction->update($request->all());
 
 		return new TransactionResource($transaction);

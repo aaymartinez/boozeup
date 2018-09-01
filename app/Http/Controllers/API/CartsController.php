@@ -65,11 +65,6 @@ class CartsController extends Controller
 	 */
 	public function update(Request $request, Carts $cart)
 	{
-		// check if currently authenticated user is the owner of the book
-		if ($request->cart->users_id !== $cart->users_id) {
-			return response()->json(['error' => 'You can only edit your own cart.'], 403);
-		}
-
 		$cart->update($request->all());
 
 		return new CartsResource($cart);

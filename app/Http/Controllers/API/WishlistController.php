@@ -63,11 +63,6 @@ class WishlistController extends Controller
 	 */
 	public function update(Request $request, Wishlist $wishlist)
 	{
-		// check if currently authenticated user is the owner of the book
-		//if ($request->user()->id !== $wishlist->users_id) {
-		//	return response()->json(['error' => 'You can only edit your own profile.'], 403);
-		//}
-
 		$wishlist->update($request->all());
 
 		return new WishlistResource($wishlist);

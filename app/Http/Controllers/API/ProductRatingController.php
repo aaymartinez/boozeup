@@ -64,11 +64,6 @@ class ProductRatingController extends Controller
 	 */
 	public function update(Request $request, ProductRating $product_rating)
 	{
-		// check if currently authenticated user is the owner of the book
-		if ($request->user()->id !== $product_rating->id) {
-			return response()->json(['error' => 'You can only edit your own profile.'], 403);
-		}
-
 		$product_rating->update($request->all());
 
 		return new ProductRatingResource($product_rating);

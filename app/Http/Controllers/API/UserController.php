@@ -80,11 +80,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-	    // check if currently authenticated user is the owner of the book
-	    if ($request->user()->id !== $user->id) {
-		    return response()->json(['error' => 'You can only edit your own profile.'], 403);
-	    }
-
 	    $user->update($request->all());
 
 	    return new UserResource($user);

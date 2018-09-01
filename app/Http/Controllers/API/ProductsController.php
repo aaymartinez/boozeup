@@ -67,11 +67,6 @@ class ProductsController extends Controller
 	 */
 	public function update(Request $request, Products $products)
 	{
-		// check if currently authenticated user is the owner of the book
-		if ($request->user()->id !== $products->seller_name_id) {
-			return response()->json(['error' => 'You can only edit your own product.'], 403);
-		}
-
 		$products->update($request->all());
 
 		return new ProductsResource($products);
