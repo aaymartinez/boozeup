@@ -71,15 +71,22 @@ class BoozeTypesController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param BoozeTypes $booze
+	 * @param BoozeTypes id $booze
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(BoozeTypes $booze)
+	public function destroy($booze)
 	{
-		$booze->delete();
+		$record = BoozeTypes::find($booze);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

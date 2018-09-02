@@ -72,15 +72,22 @@ class ContactUsController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param ContactUs $contact_us
+	 * @param ContactUs id $contact_us
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(ContactUs $contact_us)
+	public function destroy($contact_us)
 	{
-		$contact_us->delete();
+		$record = ContactUs::find($contact_us);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

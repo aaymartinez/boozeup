@@ -73,15 +73,22 @@ class ProductRatingController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param ProductRating $product_rating
+	 * @param ProductRating id $product_rating
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(ProductRating $product_rating)
+	public function destroy($product_rating)
 	{
-		$product_rating->delete();
+		$record = ProductRating::find($product_rating);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

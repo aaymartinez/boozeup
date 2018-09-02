@@ -74,15 +74,22 @@ class CartsController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param Carts $cart
+	 * @param Carts id $cart
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Carts $cart)
+	public function destroy($cart)
 	{
-		$cart->delete();
+		$record = Carts::find($cart);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

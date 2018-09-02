@@ -72,17 +72,22 @@ class WishlistController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param Wishlist $wishlist
+	 * @param Wishlist id $wishlist
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Wishlist $wishlist)
+	public function destroy($wishlist)
 	{
-		$wishlist->delete();
+		$record = Wishlist::find($wishlist);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		//return response()->json(['status' => 'success']);
-		return json_encode('success');
-
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

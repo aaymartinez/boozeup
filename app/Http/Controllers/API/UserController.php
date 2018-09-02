@@ -89,15 +89,22 @@ class UserController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param User $user
+	 * @param User id $user
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(User $user)
+	public function destroy($user)
     {
-	    $user->delete();
+	    $record = User::find($user);
+	    if (!$record) {
+		    return json_encode('No records found!');
+	    }
 
-	    return response()->json(null, 204);
+	    if ($record->delete()) {
+		    return json_encode('success');
+	    } else {
+		    return json_encode('failed');
+	    }
     }
 }

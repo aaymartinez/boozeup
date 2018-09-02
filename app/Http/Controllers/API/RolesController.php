@@ -69,15 +69,22 @@ class RolesController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param Roles $roles
+	 * @param Roles id $roles
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Roles $roles)
+	public function destroy($roles)
 	{
-		$roles->delete();
+		$record = Roles::find($roles);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

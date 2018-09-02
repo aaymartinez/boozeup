@@ -95,15 +95,22 @@ class TransactionController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param Transaction $transaction
+	 * @param Transaction id $transaction
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Transaction $transaction)
+	public function destroy($transaction)
 	{
-		$transaction->delete();
+		$record = Transaction::find($transaction);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

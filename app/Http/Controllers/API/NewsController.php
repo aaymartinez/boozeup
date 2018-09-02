@@ -73,15 +73,22 @@ class NewsController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param News $news
+	 * @param News id $news
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(News $news)
+	public function destroy($news)
 	{
-		$news->delete();
+		$record = News::find($news);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }

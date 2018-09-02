@@ -76,15 +76,22 @@ class ProductsController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param Products $products
+	 * @param Products id $products
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \Exception
 	 */
-	public function destroy(Products $products)
+	public function destroy($products)
 	{
-		$products->delete();
+		$record = Products::find($products);
+		if (!$record) {
+			return json_encode('No records found!');
+		}
 
-		return response()->json(null, 204);
+		if ($record->delete()) {
+			return json_encode('success');
+		} else {
+			return json_encode('failed');
+		}
 	}
 }
