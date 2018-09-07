@@ -43,7 +43,11 @@ class CreateUsersTable extends Migration
 	        // flags
 	        $table->boolean('is_profile_complete')->default(false);
 
-            $table->rememberToken();
+	        // Laravel Passport
+	        $table->text('api_token');
+
+
+	        $table->rememberToken();
             $table->timestamps();
         });
     }

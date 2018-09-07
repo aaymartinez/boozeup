@@ -19,13 +19,24 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::apiResource('/user', 'API\UserController');
-Route::apiResource('/boozetype', 'API\BoozeTypesController');
-Route::apiResource('/carts', 'API\CartsController');
+
+// Public
+Route::post('/auth/register', 'API\PassportController@register');
+Route::post('/auth/login', 'API\PassportController@login');
+
+Route::group(['middleware' => ['auth:api']], function(){
+
+	Route::apiResource('/user', 'API\UserController');
+
+	Route::apiResource('/boozetype', 'API\BoozeTypesController');
+	Route::apiResource('/carts', 'API\CartsController');
 //Route::apiResource('/contact-us', 'API\ContactUsController');
-Route::apiResource('/news', 'API\NewsController');
-Route::apiResource('/product', 'API\ProductsController');
-Route::apiResource('/product-rating', 'API\ProductRatingController');
+	Route::apiResource('/news', 'API\NewsController');
+	Route::apiResource('/product', 'API\ProductsController');
+	Route::apiResource('/product-rating', 'API\ProductRatingController');
 //Route::apiResource('/roles', 'API\RolesController');
-Route::apiResource('/transaction', 'API\TransactionController');
-Route::apiResource('/wishlist', 'API\WishlistController');
+	Route::apiResource('/transaction', 'API\TransactionController');
+	Route::apiResource('/wishlist', 'API\WishlistController');
+	
+});
+

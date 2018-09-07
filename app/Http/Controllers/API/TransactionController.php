@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Carts;
 use App\Http\Resources\TransactionResource;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -56,8 +57,18 @@ class TransactionController extends Controller
 			'authorized_recipient'=> $request->authorized_recipient,
 		]);
 
+		// save the transaction id to the current list of products
+		$transaction_id = $transaction->id;
+		$carts = Carts::all()
+		              ->where('users_id', '=', $request->users_id)
+		              ->where('transactions_id', '=', '')
+		              ->where('bought', '=', false);
 
-
+		foreach ($carts as $item) {
+			$item->transactions_id = $transaction_id;
+			$item->bought = true;
+			$item->save();
+		}
 
 		return new TransactionResource($transaction);
 	}

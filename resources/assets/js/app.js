@@ -23,7 +23,6 @@ $ = require('jquery');
 //     el: '#app'
 // });
 
-
 /**
  * Custom Jquery
  */
