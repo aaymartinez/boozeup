@@ -16,7 +16,17 @@ class RolesController extends Controller
 	 */
 	public function index()
 	{
-		return RolesResource::collection(Roles::all());
+		try {
+
+			return RolesResource::collection(Roles::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 
 	}
 
@@ -29,11 +39,21 @@ class RolesController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$roles = Roles::create([
-			'role'=> $request->role,
-		]);
+		try {
 
-		return new RolesResource($roles);
+			$roles = Roles::create([
+				'role'=> $request->role,
+			]);
+
+			return new RolesResource($roles);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -45,9 +65,19 @@ class RolesController extends Controller
 	 */
 	public function show(Roles $roles)
 	{
-		RolesResource::withoutWrapping();
+		try {
 
-		return new RolesResource($roles);
+			RolesResource::withoutWrapping();
+
+			return new RolesResource($roles);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -60,9 +90,19 @@ class RolesController extends Controller
 	 */
 	public function update(Request $request, Roles $roles)
 	{
-		$roles->update($request->all());
+		try {
 
-		return new RolesResource($roles);
+			$roles->update($request->all());
+
+			return new RolesResource($roles);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -76,15 +116,25 @@ class RolesController extends Controller
 	 */
 	public function destroy($roles)
 	{
-		$record = Roles::find($roles);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = Roles::find($roles);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

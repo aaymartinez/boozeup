@@ -16,8 +16,17 @@ class WishlistController extends Controller
 	 */
 	public function index()
 	{
-		return WishlistResource::collection(Wishlist::all());
+		try {
 
+			return WishlistResource::collection(Wishlist::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,14 +38,24 @@ class WishlistController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$wishlist = Wishlist::create([
-			'products_id' => $request->products_id,
-			'users_id' => $request->users_id,
-			'quantity' => $request->quantity,
-			'price' => $request->price,
-		]);
+		try {
 
-		return new WishlistResource($wishlist);
+			$wishlist = Wishlist::create([
+				'products_id' => $request->products_id,
+				'users_id' => $request->users_id,
+				'quantity' => $request->quantity,
+				'price' => $request->price,
+			]);
+
+			return new WishlistResource($wishlist);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -48,9 +67,19 @@ class WishlistController extends Controller
 	 */
 	public function show(Wishlist $wishlist)
 	{
-		WishlistResource::withoutWrapping();
+		try {
 
-		return new WishlistResource($wishlist);
+			WishlistResource::withoutWrapping();
+
+			return new WishlistResource($wishlist);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -63,9 +92,19 @@ class WishlistController extends Controller
 	 */
 	public function update(Request $request, Wishlist $wishlist)
 	{
-		$wishlist->update($request->all());
+		try {
 
-		return new WishlistResource($wishlist);
+			$wishlist->update($request->all());
+
+			return new WishlistResource($wishlist);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -79,15 +118,25 @@ class WishlistController extends Controller
 	 */
 	public function destroy($wishlist)
 	{
-		$record = Wishlist::find($wishlist);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = Wishlist::find($wishlist);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

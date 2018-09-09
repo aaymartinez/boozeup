@@ -16,8 +16,17 @@ class ProductsController extends Controller
 	 */
 	public function index()
 	{
-		return ProductsResource::collection(Products::all());
+		try {
 
+			return ProductsResource::collection(Products::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,18 +38,28 @@ class ProductsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$products = Products::create([
-			'title' => $request->title,
-			'brand_name' => $request->brand_name,
-			'seller_name_id' => $request->seller_name_id,
-			'price' => $request->price,
-			'description' => $request->description,
-			'booze_type_id' => $request->booze_type_id,
-			'photos' => $request->photos,
-			'quantity' => $request->quantity,
-		]);
+		try {
 
-		return new ProductsResource($products);
+			$products = Products::create([
+				'title' => $request->title,
+				'brand_name' => $request->brand_name,
+				'seller_name_id' => $request->seller_name_id,
+				'price' => $request->price,
+				'description' => $request->description,
+				'booze_type_id' => $request->booze_type_id,
+				'photos' => $request->photos,
+				'quantity' => $request->quantity,
+			]);
+
+			return new ProductsResource($products);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -52,9 +71,19 @@ class ProductsController extends Controller
 	 */
 	public function show($products)
 	{
-		$p = Products::findOrFail($products);
+		try {
 
-		return new ProductsResource($p);
+			$p = Products::findOrFail($products);
+
+			return new ProductsResource($p);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -67,9 +96,19 @@ class ProductsController extends Controller
 	 */
 	public function update(Request $request, Products $products)
 	{
-		$products->update($request->all());
+		try {
 
-		return new ProductsResource($products);
+			$products->update($request->all());
+
+			return new ProductsResource($products);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -83,15 +122,25 @@ class ProductsController extends Controller
 	 */
 	public function destroy($products)
 	{
-		$record = Products::find($products);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = Products::find($products);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

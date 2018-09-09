@@ -16,8 +16,17 @@ class ProductRatingController extends Controller
 	 */
 	public function index()
 	{
-		return ProductRatingResource::collection(ProductRating::all());
+		try {
 
+			return ProductRatingResource::collection(ProductRating::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,15 +38,25 @@ class ProductRatingController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$product_rating = ProductRating::create([
-			'products_id' => $request->products_id,
-			'user_id' => $request->user_id,
-			'rating' => $request->rating,
-			'title' => $request->title,
-			'description' => $request->description,
-		]);
+		try {
 
-		return new ProductRatingResource($product_rating);
+			$product_rating = ProductRating::create([
+				'products_id' => $request->products_id,
+				'user_id' => $request->user_id,
+				'rating' => $request->rating,
+				'title' => $request->title,
+				'description' => $request->description,
+			]);
+
+			return new ProductRatingResource($product_rating);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -49,9 +68,19 @@ class ProductRatingController extends Controller
 	 */
 	public function show(ProductRating $product_rating)
 	{
-		ProductRatingResource::withoutWrapping();
+		try {
 
-		return new ProductRatingResource($product_rating);
+			ProductRatingResource::withoutWrapping();
+
+			return new ProductRatingResource($product_rating);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -64,9 +93,19 @@ class ProductRatingController extends Controller
 	 */
 	public function update(Request $request, ProductRating $product_rating)
 	{
-		$product_rating->update($request->all());
+		try {
 
-		return new ProductRatingResource($product_rating);
+			$product_rating->update($request->all());
+
+			return new ProductRatingResource($product_rating);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -80,15 +119,25 @@ class ProductRatingController extends Controller
 	 */
 	public function destroy($product_rating)
 	{
-		$record = ProductRating::find($product_rating);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = ProductRating::find($product_rating);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

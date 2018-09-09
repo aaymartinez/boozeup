@@ -16,8 +16,17 @@ class CartsController extends Controller
 	 */
 	public function index()
 	{
-		return CartsResource::collection(Carts::all());
+		try {
 
+			return CartsResource::collection(Carts::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,16 +38,26 @@ class CartsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$cart = Carts::create([
-			'products_id' => $request->product_id,
-			'users_id' => $request->users_id,
-			'quantity' => $request->quantity,
-			'price' => $request->price,
-			'transactions_id' => $request->transactions_id,
-			'bought' => $request->bought,
-		]);
+		try {
 
-		return new CartsResource($cart);
+			$cart = Carts::create([
+				'products_id' => $request->product_id,
+				'users_id' => $request->users_id,
+				'quantity' => $request->quantity,
+				'price' => $request->price,
+				'transactions_id' => $request->transactions_id,
+				'bought' => $request->bought,
+			]);
+
+			return new CartsResource($cart);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -50,9 +69,19 @@ class CartsController extends Controller
 	 */
 	public function show(Carts $cart)
 	{
-		CartsResource::withoutWrapping();
+		try {
 
-		return new CartsResource($cart);
+			CartsResource::withoutWrapping();
+
+			return new CartsResource($cart);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -65,9 +94,19 @@ class CartsController extends Controller
 	 */
 	public function update(Request $request, Carts $cart)
 	{
-		$cart->update($request->all());
+		try {
 
-		return new CartsResource($cart);
+			$cart->update($request->all());
+
+			return new CartsResource($cart);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -81,15 +120,25 @@ class CartsController extends Controller
 	 */
 	public function destroy($cart)
 	{
-		$record = Carts::find($cart);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = Carts::find($cart);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

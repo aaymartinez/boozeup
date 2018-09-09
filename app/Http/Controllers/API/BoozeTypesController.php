@@ -16,8 +16,17 @@ class BoozeTypesController extends Controller
 	 */
 	public function index()
 	{
-		return BoozeTypesResource::collection(BoozeTypes::all());
+		try {
 
+			return BoozeTypesResource::collection( BoozeTypes::all() );
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,13 +38,23 @@ class BoozeTypesController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$user = BoozeTypes::create([
-			'type' => $request->type,
-			'description' => $request->description,
-			'photo' => $request->photo,
-		]);
+		try {
 
-		return new BoozeTypesResource($user);
+			$user = BoozeTypes::create([
+				'type' => $request->type,
+				'description' => $request->description,
+				'photo' => $request->photo,
+			]);
+
+			return new BoozeTypesResource($user);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -47,9 +66,19 @@ class BoozeTypesController extends Controller
 	 */
 	public function show($booze)
 	{
-		$b = BoozeTypes::findOrFail($booze);
+		try {
 
-		return new BoozeTypesResource($b);
+			$b = BoozeTypes::findOrFail($booze);
+
+			return new BoozeTypesResource($b);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -62,9 +91,19 @@ class BoozeTypesController extends Controller
 	 */
 	public function update(Request $request, BoozeTypes $booze)
 	{
-		$booze->update($request->all());
+		try {
 
-		return new BoozeTypesResource($booze);
+			$booze->update($request->all());
+
+			return new BoozeTypesResource($booze);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -78,15 +117,25 @@ class BoozeTypesController extends Controller
 	 */
 	public function destroy($booze)
 	{
-		$record = BoozeTypes::find($booze);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = BoozeTypes::find($booze);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 
@@ -20,21 +21,29 @@ class PassportController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function login(){
-		if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+		try {
 
-			$user = Auth::user();
+			if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
 
-			$success['token'] = $user->createToken('BoozeUp')->accessToken;
+				$user = Auth::user();
 
-			$user->api_token = $success['token'];
-			$user->save();
+				$success['token'] = $user->createToken('BoozeUp')->accessToken;
 
-			return response()->json(['success' => $success], $this->successStatus);
+				$user->api_token = $success['token'];
+				$user->save();
 
-		} else {
+				return response()->json(['success' => $success], $this->successStatus);
 
-			return response()->json(['error'=>'Unauthorised'], 401);
+			} else {
+				return response()->json(['error'=>'Unauthorised'], 401);
+			}
 
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 
@@ -48,35 +57,85 @@ class PassportController extends Controller
 	 */
 	public function register(Request $request)
 	{
-		$validator = Validator::make($request->all(), [
-			'email' => 'required|string|email|max:255|unique:users',
-			'password' => 'required|string|min:6',
-		]);
+		try {
 
-		if ($validator->fails()) {
-			return response()->json(['error'=>$validator->errors()], 401);
+			$validator = Validator::make($request->all(), [
+				'email' => 'required|string|email|max:255|unique:users',
+				'password' => 'required|string|min:6',
+			]);
+
+			if ($validator->fails()) {
+				return response()->json(['error'=>$validator->errors()], 401);
+			}
+
+			$input = $request->all();
+
+			$input['password'] = bcrypt($input['password']);
+
+			$user = User::create($input);
+
+			$success['token'] = $user->createToken('BoozeUp')->accessToken;
+
+			return response()->json(['success'=>$success], $this->successStatus);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
-
-		$input = $request->all();
-
-		$input['password'] = bcrypt($input['password']);
-
-		$user = User::create($input);
-
-		$success['token'] = $user->createToken('BoozeUp')->accessToken;
-
-		return response()->json(['success'=>$success], $this->successStatus);
 	}
 
 
-
-	public function getDetails()
+	/**
+	 * Change password
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function changePassword(Request $request)
 	{
+		try {
 
-		$user = Auth::user();
+			$user = Auth::user();
 
-		return response()->json(['success' => $user], $this->successStatus);
+			// validate password
+			$validator = Validator::make( $request->all(), [
+				'old_password' => 'required|string|min:6',
+				'password'     => 'required|string|min:6|confirmed',
+//				'password_confirmation'   => 'required|same:password'
+			] );
+
+			if ($validator->fails()) {
+				return response()->json(['error'=>$validator->errors()], 400);
+			}
+
+			// check old password
+			$old = $request->old_password;
+			$current = $user->getAuthPassword();
+			$new = $request->password;
+
+			if ( Hash::check( $old, $current ) && !Hash::check( $new, $current ) ) {
+
+				// the new and old password must not be the same
+				$user->password = bcrypt( $new );
+
+				if ( $user->save() ) {
+					return response()->json( [ 'success' => 'success' ], $this->successStatus );
+				}
+			} else {
+				return response()->json( [ 'error' => 'Current and new password must not be the same or incorrect current password.' ], 400 );
+			}
+
+		} catch (\Exception $e) {
+			return response()->json([
+				'errors' => $e->getMessage(),
+				'message' => 'Please try again',
+				'status' => false
+			], 200);
+		}
 	}
-
 
 }

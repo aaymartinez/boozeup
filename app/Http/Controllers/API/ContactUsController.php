@@ -16,8 +16,17 @@ class ContactUsController extends Controller
 	 */
 	public function index()
 	{
-		return ContactUsResource::collection(ContactUs::all());
+		try {
 
+			return ContactUsResource::collection(ContactUs::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,14 +38,25 @@ class ContactUsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$contact_us = ContactUs::create([
-			'name' => $request->name,
-			'email' => $request->email,
-			'mobile_number' => $request->mobile_number,
-			'message' => $request->message,
-		]);
+		try {
 
-		return new ContactUsResource($contact_us);
+
+			$contact_us = ContactUs::create([
+				'name' => $request->name,
+				'email' => $request->email,
+				'mobile_number' => $request->mobile_number,
+				'message' => $request->message,
+			]);
+
+			return new ContactUsResource($contact_us);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -48,9 +68,19 @@ class ContactUsController extends Controller
 	 */
 	public function show(ContactUs $contact_us)
 	{
-		ContactUsResource::withoutWrapping();
+		try {
 
-		return new ContactUsResource($contact_us);
+			ContactUsResource::withoutWrapping();
+
+			return new ContactUsResource($contact_us);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -63,9 +93,19 @@ class ContactUsController extends Controller
 	 */
 	public function update(Request $request, ContactUs $contact_us)
 	{
-		$contact_us->update($request->all());
+		try {
 
-		return new ContactUsResource($contact_us);
+			$contact_us->update($request->all());
+
+			return new ContactUsResource($contact_us);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -79,15 +119,25 @@ class ContactUsController extends Controller
 	 */
 	public function destroy($contact_us)
 	{
-		$record = ContactUs::find($contact_us);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = ContactUs::find($contact_us);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }

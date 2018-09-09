@@ -23,9 +23,11 @@ use Illuminate\Http\Request;
 // Public
 Route::post('/auth/register', 'API\PassportController@register');
 Route::post('/auth/login', 'API\PassportController@login');
+Route::post('/auth/forgot-password', 'API\ForgotPasswordController@sendResetLink');
 
 Route::group(['middleware' => ['auth:api']], function(){
 
+	Route::post('/auth/change-password', 'API\PassportController@changePassword');
 	Route::apiResource('/user', 'API\UserController');
 
 	Route::apiResource('/boozetype', 'API\BoozeTypesController');
@@ -37,6 +39,6 @@ Route::group(['middleware' => ['auth:api']], function(){
 //Route::apiResource('/roles', 'API\RolesController');
 	Route::apiResource('/transaction', 'API\TransactionController');
 	Route::apiResource('/wishlist', 'API\WishlistController');
-	
+
 });
 

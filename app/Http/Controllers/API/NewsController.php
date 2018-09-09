@@ -16,8 +16,17 @@ class NewsController extends Controller
 	 */
 	public function index()
 	{
-		return NewsResource::collection(News::all());
+		try {
 
+			return NewsResource::collection(News::all());
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -29,15 +38,25 @@ class NewsController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$news = News::create([
-			'booze_type_id' => $request->booze_type_id,
-			'title' => $request->title,
-			'subject' => $request->subject,
-			'description' => $request->description,
-			'photo' => $request->photo,
-		]);
+		try {
 
-		return new NewsResource($news);
+			$news = News::create([
+				'booze_type_id' => $request->booze_type_id,
+				'title' => $request->title,
+				'subject' => $request->subject,
+				'description' => $request->description,
+				'photo' => $request->photo,
+			]);
+
+			return new NewsResource($news);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -49,9 +68,19 @@ class NewsController extends Controller
 	 */
 	public function show(News $news)
 	{
-		NewsResource::withoutWrapping();
+		try {
 
-		return new NewsResource($news);
+			NewsResource::withoutWrapping();
+
+			return new NewsResource($news);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 	/**
@@ -64,9 +93,19 @@ class NewsController extends Controller
 	 */
 	public function update(Request $request, News $news)
 	{
-		$news->update($request->all());
+		try {
 
-		return new NewsResource($news);
+			$news->update($request->all());
+
+			return new NewsResource($news);
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
+		}
 	}
 
 
@@ -80,15 +119,25 @@ class NewsController extends Controller
 	 */
 	public function destroy($news)
 	{
-		$record = News::find($news);
-		if (!$record) {
-			return json_encode('No records found!');
-		}
+		try {
 
-		if ($record->delete()) {
-			return json_encode('success');
-		} else {
-			return json_encode('failed');
+			$record = News::find($news);
+			if (!$record) {
+				return json_encode('No records found!');
+			}
+
+			if ($record->delete()) {
+				return json_encode('success');
+			} else {
+				return json_encode('failed');
+			}
+
+		} catch (\Exception $e) {
+			return response()->json( [
+				'errors'  => $e->getMessage(),
+				'message' => 'Please try again',
+				'status'  => false
+			], 200 );
 		}
 	}
 }
