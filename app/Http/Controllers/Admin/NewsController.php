@@ -56,7 +56,7 @@ class NewsController extends Controller
         $news = News::create($request->all());
 
         if ($request->has('photo')) {
-        	$filename = $request->file('photo')->store('public/'.$dir);
+        	$filename = $request->file('photo')->store($dir);
         	$news->photo = $filename;
         	$news->save();
         }

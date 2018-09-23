@@ -16,9 +16,6 @@ class UserController extends Controller
     public function index()
     {
 		$users =  User::all();
-//		$admin = $users->where('role_ID', '=', 1);
-//	    $buyer = $users->where('role_ID', '=', 2);
-//		$seller = $users->where('role_ID', '=', 3);
 
         return view('admin.users', compact('users'));
     }

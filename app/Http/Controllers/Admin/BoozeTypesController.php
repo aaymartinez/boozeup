@@ -51,7 +51,7 @@ class BoozeTypesController extends Controller
 	    $booze = BoozeTypes::create($request->all());
 
         if ($request->has('photo')) {
-	        $filename = $request->file('photo')->store('public/'.$dir);
+	        $filename = $request->file('photo')->store($dir);
 			$booze->photo = $filename;
 	        $booze->save();
         }

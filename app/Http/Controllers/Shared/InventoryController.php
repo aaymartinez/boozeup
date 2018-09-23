@@ -64,7 +64,7 @@ class InventoryController extends Controller
 	    $product = Products::create($request->all());
 
 	    if ($request->has('photo')) {
-		    $filename = $request->file('photo')->store('public/'.$dir);
+		    $filename = $request->file('photo')->store($dir);
 		    $product->photos = $filename;
 		    $product->save();
 	    }
@@ -134,7 +134,7 @@ class InventoryController extends Controller
 			    Storage::delete($product->photos);
 		    }
 
-		    $filename = $request->file('photo')->store('public/'.$dir);
+		    $filename = $request->file('photo')->store($dir);
 		    $product->photos = $filename;
 		    $product->save();
 	    }
