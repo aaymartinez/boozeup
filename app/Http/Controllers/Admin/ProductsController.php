@@ -58,7 +58,7 @@ class ProductsController extends Controller
 	    $product = Products::create($request->all());
 
 	    if ($request->has('photo')) {
-		    $filename = $request->file('photo')->store($dir);
+		    $filename = $request->file('photo')->store('public/'.$dir);
 		    $product->photos = $filename;
 		    $product->save();
 	    }
