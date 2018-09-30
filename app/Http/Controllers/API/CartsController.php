@@ -41,7 +41,7 @@ class CartsController extends Controller
 		try {
 
 			$cart = Carts::create([
-				'products_id' => $request->product_id,
+				'products_id' => $request->products_id,
 				'users_id' => $request->users_id,
 				'quantity' => $request->quantity,
 				'price' => $request->price,

@@ -32,7 +32,10 @@ class PassportController extends Controller
 				$user->api_token = $success['token'];
 				$user->save();
 
-				return response()->json(['success' => $success], $this->successStatus);
+				return response()->json([
+					'success' => $success,
+					'id' => $user->id,
+				], $this->successStatus);
 
 			} else {
 				return response()->json(['error'=>'Unauthorised'], 401);
