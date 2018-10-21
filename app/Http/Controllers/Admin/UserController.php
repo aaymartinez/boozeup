@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -93,7 +94,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+	    if ( $id != Auth::id() ) {
+		    return redirect('/admin/user');
+	    }
+
+	    $user = User::where('id', Auth::id())->where('id', $id)->first();
+
+	    return view('admin.user-detail', compact('user', 'id'));
     }
 
     /**
@@ -105,7 +112,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+	    $dir = 'user-profile';
+
+	    $user = User::find($id);
+
+
+	    // update bday
+	    $request->merge([ 'birth_date' => date("Y-m-d H:i:s", strtotime(request('birth_date'))) ]);
+	    $user->update($request->all());
+
+	    // save image
+	    if ($request->has('id_verification')) {
+		    $filename = $request->file('id_verification')->store('public/'.$dir);
+		    $user->id_verification = $filename;
+		    $user->save();
+	    }
+
+	    return redirect('/admin/user')
+		    ->with('success', 'Profile updated successfully!');
     }
 
     /**

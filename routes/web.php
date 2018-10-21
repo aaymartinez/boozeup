@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth', 'seller']], function () {
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
 	// Admin pages
-	Route::get('/admin', 'Admin\IndexController@index');
+//	Route::get('/admin', 'Admin\IndexController@index');
 	Route::resource('/admin/user', 'Admin\UserController');
 	Route::resource('/admin/news', 'Admin\NewsController');
 	Route::resource('/admin/booze', 'Admin\BoozeTypesController');

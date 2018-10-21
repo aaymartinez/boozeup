@@ -14,6 +14,14 @@
     @yield('add-styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @if(!Auth::user()->is_profile_complete)
+        <script>
+            var loc = location.pathname;
+            if (loc != '/profile') {
+                window.location = "/profile";
+            }
+        </script>
+    @endif
 </head>
 <body class="{{ $view_name }}">
     <div class="container-fluid" id="app">
@@ -61,9 +69,9 @@
                         <li class="nav-item dup1">
                             <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                         </li>
-                        <li class="nav-item dup1">
-                            <a class="nav-link iconRed" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-                        </li>
+                        {{--<li class="nav-item dup1">--}}
+                            {{--<a class="nav-link iconRed" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>--}}
+                        {{--</li>--}}
                         <li class="nav-item dropdown profile">
                             <a class="nav-link dropdown-toggle iconRed" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -78,7 +86,7 @@
                                 <a class="dropdown-item" href="{{ url('transaction') }}">Transactions</a>
 
                                 <a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>
-                                <a class="dropdown-item dup2" href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>
+                                {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>--}}
                                 <a href="{{ route('logout') }}" class="dropdown-item dup2 btn cBtn rounded-0"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i> LOG OUT

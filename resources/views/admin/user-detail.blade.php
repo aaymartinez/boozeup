@@ -1,19 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('add-styles')
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 @endsection
 
 @section('content')
-    <div class="page-title w-100 d-block">
-        <div class="container">
-            <h3>EDIT PROFILE</h3>
-        </div>
-    </div>
 
     <div class="container main">
 
-        <form class="form-horizontal" method="POST" action="{{ action('Shared\ProfileController@update', $user->id) }}"  enctype="multipart/form-data">
+        <h3>User Detail</h3>
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p class="m-0">{{ $message }}</p>
+            </div>
+        @endif
+
+        <form class="form-horizontal" method="POST" action="{{ '/admin/user/'.$user->id }}"  enctype="multipart/form-data">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PATCH">
 
@@ -246,18 +249,31 @@
 
             <hr />
 
+            <div class="form-group{{ $errors->has('is_profile_complete') ? ' has-error' : '' }} mt-2 mb-2">
+                <label for="is_profile_complete">Verified</label>
+                <select name="is_profile_complete" id="is_profile_complete" class="form-control">
+                    <option value="">-Any-</option>
+                    <option value="1" {{ ($user->is_profile_complete) ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ (!$user->is_profile_complete) ? 'selected' : '' }}>No</option>
+                </select>
+                @if ($errors->has('gender'))
+                    <span class="help-block text-danger">
+                            <strong>{{ $errors->first('gender') }}</strong>
+                        </span>
+                @endif
+            </div>
+
+            <hr />
+
             <div class="form-group mt-2 mb-5 text-right">
-                <button type="submit" class="btn cBtn rounded-0">Submit</button>
-                <a href="{{ url('/profile') }}" class="btn cBtn rounded-0 ">Cancel</a>
+                <button type="submit" class="btn btn-primary rounded-0">Submit</button>
+                <a href="{{ url('/admin/user') }}" class="btn btn-secondary rounded-0 ">Cancel</a>
             </div>
         </form>
-
-
 
     </div>
 
 @endsection
-
 
 @section('add-scripts')
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"

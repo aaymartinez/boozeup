@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-6">
                     <div><span class="font-weight-bold">Gender:</span> {{ $user->gender }}</div>
-                    <div><span class="font-weight-bold">Birth Date:</span> {{ $user->birth_date }}</div>
+                    <div><span class="font-weight-bold">Birth Date:</span> {{ date('m/d/Y', strtotime($user->birth_date)) }}</div>
                     <div><span class="font-weight-bold">Mobile Number:</span> {{ $user->mobile_number }}</div>
                 </div>
             @else

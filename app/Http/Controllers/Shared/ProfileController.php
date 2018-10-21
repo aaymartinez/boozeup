@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shared;
 use App\Carts;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -92,6 +93,10 @@ class ProfileController extends Controller
 	    $dir = 'user-profile';
 
 	    $user = User::find($id);
+
+
+		// update bday
+	    $request->merge([ 'birth_date' => date("Y-m-d H:i:s", strtotime(request('birth_date'))) ]);
 	    $user->update($request->all());
 
 		// save image
