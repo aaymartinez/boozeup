@@ -62,6 +62,7 @@ class UserController extends Controller
 		        'landmarks' => $request->landmarks,
 		        'authorized_recipient' => $request->authorized_recipient,
 		        'is_profile_complete' => $request->is_profile_complete,
+		        'id_verification' => $request->id_verification,
 	        ]);
 
 	        return new UserResource($user);
@@ -112,6 +113,14 @@ class UserController extends Controller
     	try {
 
 		    $user->update($request->all());
+
+		    // save image
+		    $dir = 'user-profile';
+		    if ($request->has('id_verification')) {
+			    $filename = $request->file('id_verification')->store('public/'.$dir);
+			    $user->id_verification = $filename;
+			    $user->save();
+		    }
 
 		    return new UserResource($user);
 

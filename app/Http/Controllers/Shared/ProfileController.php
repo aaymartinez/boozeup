@@ -89,8 +89,17 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-		$user = User::find($id);
+	    $dir = 'user-profile';
+
+	    $user = User::find($id);
 	    $user->update($request->all());
+
+		// save image
+	    if ($request->has('id_verification')) {
+		    $filename = $request->file('id_verification')->store('public/'.$dir);
+		    $user->id_verification = $filename;
+		    $user->save();
+	    }
 
 	    return redirect('/profile')
 		    ->with('success', 'Profile updated successfully!');

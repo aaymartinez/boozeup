@@ -13,6 +13,8 @@
                     <p class="m-0"></p>
                 </div>
 
+                {{ $user->is_profile_complete }}
+
                 @if ($carts->count() != 0)
                     <div class="row carts">
                         <table class="table table-borderless">

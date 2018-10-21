@@ -37,6 +37,7 @@ class UserResource extends Resource
 		    'landmarks' => $this->landmarks,
 		    'authorized_recipient' => $this->authorized_recipient,
 		    'is_profile_complete' => $this->is_profile_complete,
+		    'id_verification' => $this->id_verification,
 		    'created_at' => $this->created_at,
 		    'updated_at' => $this->updated_at,
 	    ];

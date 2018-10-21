@@ -13,7 +13,7 @@
 
     <div class="container main">
 
-        <form class="form-horizontal" method="POST" action="{{ action('Shared\ProfileController@update', $user->id) }}">
+        <form class="form-horizontal" method="POST" action="{{ action('Shared\ProfileController@update', $user->id) }}"  enctype="multipart/form-data">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PATCH">
 
@@ -223,6 +223,18 @@
                 @if ($errors->has('authorized_recipient'))
                     <span class="help-block text-danger">
                     <strong>{{ $errors->first('authorized_recipient') }}</strong>
+                </span>
+                @endif
+            </div>
+
+            <hr />
+
+            <div class="form-group{{ $errors->has('id_verification') ? ' has-error' : '' }} mt-2 mb-2">
+                <label for="id_verification">ID Verification</label>
+                <input id="id_verification" type="file" class="form-control" name="id_verification" required>
+                @if ($errors->has('id_verification'))
+                    <span class="help-block text-danger">
+                    <strong>{{ $errors->first('id_verification') }}</strong>
                 </span>
                 @endif
             </div>

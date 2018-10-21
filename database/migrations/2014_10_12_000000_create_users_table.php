@@ -46,6 +46,8 @@ class CreateUsersTable extends Migration
 	        // Laravel Passport
 	        $table->text('api_token');
 
+	        // id verification
+	        $table->string('id_verification')->nullable();
 
 	        $table->rememberToken();
             $table->timestamps();

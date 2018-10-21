@@ -42,7 +42,13 @@ class LoginController extends Controller
 		if ($user->role->role == 'admin') {
 			return redirect('/admin');
 		} else {
-			return redirect('/index');
+
+			if (!$user->is_profile_complete) {
+				return redirect('/profile');
+			} else {
+				return redirect('/index');
+			}
+
 		}
 	}
 

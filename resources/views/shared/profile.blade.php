@@ -61,13 +61,27 @@
 
         <hr>
 
-        <div class="row d-block mt-2 mb-5 rounded w-100 grouping">
+        <div class="row d-block mt-2 mb-2 rounded w-100 grouping">
             <div class="pd">
                 <div><span class="font-weight-bold">Company Name:</span> {{ $user->company_name }}</div>
                 <div><span class="font-weight-bold">Landmarks:</span> </div>
                 <div>{{ $user->landmarks }}</div>
                 <div><span class="font-weight-bold">Authorized Recipient's Name and Mobile:</span> </div>
                 <div>{{ $user->authorized_recipient }}</div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row d-block mt-2 mb-5 rounded w-100 grouping">
+            <div class="pd">
+                <div><span class="font-weight-bold">Verification Status:</span> {{ ($user->is_profile_complete) ? 'Verified' : 'Pending' }}</div>
+                <div><span class="font-weight-bold">ID Verification:</span> </div>
+                <div>
+                    @if($user->id_verification)
+                        <img src="{{ Storage::url($user->id_verification) }}" alt="ID Verification" class="img-fluid" width="500">
+                    @endif
+                </div>
             </div>
         </div>
     </div>

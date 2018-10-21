@@ -236,3 +236,8 @@ $('.alert-modal-sm').on('hidden.bs.modal', function () {
     location.reload();
 });
 
+
+/**
+ * Hide the menu except profile and
+ * */
+

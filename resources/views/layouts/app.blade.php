@@ -22,6 +22,7 @@
                 <a class="navbar-brand" href="{{ url('index') }}">
                     <img src="{{ asset('images/BoozeUp_Logo_red.png') }}" alt="Booze Up!" class="brand">
                 </a>
+
                 <form class="form-inline search ml-auto mr-2">
                     <input class="form-control rounded-0 col-sm-10" type="search" placeholder="Search for product, brand, type, seller" aria-label="Search">
                     <button class="btn rounded-0 col-sm-2" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
