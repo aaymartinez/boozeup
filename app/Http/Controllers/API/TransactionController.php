@@ -7,6 +7,7 @@ use App\Http\Resources\TransactionResource;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -19,7 +20,7 @@ class TransactionController extends Controller
 	{
 		try {
 
-			return TransactionResource::collection(Transaction::all());
+			return TransactionResource::collection(Transaction::all()->where('users_id', '=', Auth::id()));
 
 		} catch (\Exception $e) {
 			return response()->json( [
