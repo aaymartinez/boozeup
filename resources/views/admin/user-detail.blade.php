@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <form class="form-horizontal" method="POST" action="{{ '/admin/user/'.$user->id }}"  enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" action="{{ action('Admin\UserController@update', $user->id) }}"  enctype="multipart/form-data">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PATCH">
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -94,11 +94,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-	    if ( $id != Auth::id() ) {
-		    return redirect('/admin/user');
-	    }
-
-	    $user = User::where('id', Auth::id())->where('id', $id)->first();
+	    $user = User::find($id);
 
 	    return view('admin.user-detail', compact('user', 'id'));
     }
@@ -115,7 +111,6 @@ class UserController extends Controller
 	    $dir = 'user-profile';
 
 	    $user = User::find($id);
-
 
 	    // update bday
 	    $request->merge([ 'birth_date' => date("Y-m-d H:i:s", strtotime(request('birth_date'))) ]);

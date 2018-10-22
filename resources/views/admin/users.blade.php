@@ -17,7 +17,6 @@
             <th scope="col">Full Name / Shop Name</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
-            {{--<th scope="col">ID Verification</th>--}}
             <th scope="col">Verified</th>
             <th scope="col"></th>
         </tr>
@@ -29,13 +28,6 @@
                 <td>{{ ($user->shop_name) ? $user->shop_name : $user->first_name .' '. $user->last_name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role['role'] }}</td>
-                {{--<td>--}}
-                    {{--@if($user->id_verification)--}}
-                        {{--<a href="{{ Storage::url($user->id_verification) }}" target="_blank">--}}
-                            {{--<img src="{{ Storage::url($user->id_verification) }}" alt="ID Verification" class="img-fluid" width="100">--}}
-                        {{--</a>--}}
-                    {{--@endif--}}
-                {{--</td>--}}
                 <td>{{ ($user->is_profile_complete) ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ url('/admin/user/'.$user->id.'/edit') }}">Edit</a>
