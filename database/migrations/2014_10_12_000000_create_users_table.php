@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
 	        $table->boolean('is_profile_complete')->default(false);
 
 	        // Laravel Passport
-	        $table->text('api_token');
+	        $table->text('api_token')->nullable();
 
 	        // id verification
 	        $table->string('id_verification')->nullable();
