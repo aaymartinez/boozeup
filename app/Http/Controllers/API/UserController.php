@@ -4,8 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Resources\UserResource;
 use App\User;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -39,6 +43,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
     	try {
+
+//            $dir = 'user-profile';
+//
+//            // save image
+//            if ($request->has('id_verification')) {
+//                $filename = $request->file('id_verification')->store('public/'.$dir);
+//                $request->id_verification = $filename;
+//            }
 
 	        $user = User::create([
 		        'shop_name' => $request->shop_name,
@@ -115,12 +127,13 @@ class UserController extends Controller
 		    $user->update($request->all());
 
 		    // save image
-		    $dir = 'user-profile';
-		    if ($request->has('id_verification')) {
-			    $filename = $request->file('id_verification')->store('public/'.$dir);
-			    $user->id_verification = $filename;
-			    $user->save();
-		    }
+//		    $dir = 'user-profile';
+//		    if ($request->has('id_verification')) {
+//			    $filename = $request->file('id_verification')->store('public/'.$dir);
+//			    $user->id_verification = $filename;
+//			    $user->save();
+//		    }
+
 
 		    return new UserResource($user);
 
@@ -164,6 +177,44 @@ class UserController extends Controller
 			    'status'  => false
 		    ], 200 );
 	    }
+
+    }
+
+
+    /**
+     * Upload the image resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return string
+     */
+    public function uploadPhoto(Request $request)
+    {
+        try {
+            // save image
+            $dir = 'user-profile';
+            $filePath = '';
+
+            $data = $request->id_verification;
+            if ( $data ) {
+
+                $image = $data;  // your base64 encoded
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = str_random(20).'.'.'png';
+                $filePath = 'public/' . $dir . "/". $imageName;
+                Storage::put($filePath, base64_decode($image));
+            }
+
+            return $filePath;
+
+        } catch (\Exception $e) {
+            return response()->json( [
+                'errors'  => $e->getMessage(),
+                'message' => 'Please try again',
+                'status'  => false
+            ], 200 );
+        }
 
     }
 }
