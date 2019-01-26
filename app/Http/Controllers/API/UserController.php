@@ -204,6 +204,10 @@ class UserController extends Controller
                 $imageName = str_random(20).'.'.'png';
                 $filePath = 'public/' . $dir . "/". $imageName;
                 Storage::put($filePath, base64_decode($image));
+
+                $user = User::find($request->id);
+                $user->id_verification = $filePath;
+                $user->save();
             }
 
             return $filePath;
