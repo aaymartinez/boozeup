@@ -14,14 +14,15 @@
     @yield('add-styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @if(!Auth::user()->is_profile_complete)
-        <script>
-            var loc = location.pathname;
-            if (loc != '/profile') {
-                window.location = "/profile";
-            }
-        </script>
-    @endif
+    {{-- removed as per decdec 01/30/2019 --}}
+    {{--@if(!Auth::user()->is_profile_complete)--}}
+        {{--<script>--}}
+            {{--var loc = location.pathname;--}}
+            {{--if (loc != '/profile') {--}}
+                {{--window.location = "/profile";--}}
+            {{--}--}}
+        {{--</script>--}}
+    {{--@endif--}}
 </head>
 <body class="{{ $view_name }}">
     <div class="container-fluid" id="app">
