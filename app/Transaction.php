@@ -31,4 +31,9 @@ class Transaction extends Model
 	 */
 	protected $hidden = [];
 
+    function carts() {
+        return $this->hasMany(Carts::class, 'transactions_id');
+    }
+
+
 }

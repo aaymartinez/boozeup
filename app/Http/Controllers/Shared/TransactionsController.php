@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends Controller
 {
@@ -17,7 +18,21 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-    	$transactions = Transaction::all()->where('users_id', '=', Auth::id());
+        $transactions = DB::table('transactions')
+            ->where('transactions.users_id', '=', Auth::id())
+            ->get();
+
+        // get correct product list
+        foreach ($transactions as $trans) {
+            $products = DB::table('products')
+                ->select('products.*', 'carts.quantity')
+                ->join('carts', 'carts.products_id', '=', 'products.id')
+                ->where('carts.transactions_id', '=', $trans->id)
+                ->get();
+
+            $trans->products = $products;
+        }
+
 	    $completed = Transaction::all()
 	                            ->where('users_id', '=', Auth::id())
 	                            ->where('status', '=', 'Completed')
@@ -26,6 +41,8 @@ class TransactionsController extends Controller
 	    $carts = Carts::all()->where('users_id', '=', Auth::id())
 	                         ->where('transactions_id', '=', '')
 	                         ->where('bought', '=', false);
+
+
 
         return view('shared.transaction', compact('carts', 'transactions', 'completed'));
     }
