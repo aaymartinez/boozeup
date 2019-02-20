@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Shared;
 
 use App\Carts;
 use App\Http\Controllers\Controller;
+use App\Mail\EmptyInventoryItem;
+use App\Products;
 use App\Transaction;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TransactionsController extends Controller
 {
@@ -128,9 +132,19 @@ class TransactionsController extends Controller
 	                  ->where('bought', '=', false);
 
 		foreach ($carts as $item) {
-			$item->transactions_id = $transaction_id;
-			$item->bought = true;
-			$item->save();
+//			$item->transactions_id = $transaction_id;
+//			$item->bought = true;
+//			$item->save();
+
+			$products = Products::where('id', '=', $item->products_id)->firstOrFail();
+			$seller = $products->seller_name_id;
+			$diff = ( ($products->quantity) - ($item->quantity) > 0 ) ? ($products->quantity) - ($item->quantity) : 0;
+			$products->quantity = $diff;
+			$products->save();
+
+			if ($diff < 1) {
+                $this->sendMail($seller, $products);
+            }
 		}
 
 	    return redirect('./transaction')
@@ -189,5 +203,14 @@ class TransactionsController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    function sendMail($seller_id, $product) {
+        // get seller email
+        $seller = User::where('id', '=', $seller_id)->firstOrFail();
+//dd($seller->email);
+
+        Mail::to($seller->email)
+            ->send(new EmptyInventoryItem($product));
     }
 }
