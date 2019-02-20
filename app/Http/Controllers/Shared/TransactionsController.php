@@ -33,7 +33,26 @@ class TransactionsController extends Controller
             $trans->products = $products;
         }
 
-	    $completed = Transaction::all()
+
+        // shop orders
+        $orders = DB::table('user_order')
+            ->where('seller_name_id', '=', Auth::id())
+            ->groupBy('id')
+            ->get();
+
+        // get correct product list
+        foreach ($orders as $or) {
+            $products = DB::table('products')
+                ->select('products.*', 'carts.quantity')
+                ->join('carts', 'carts.products_id', '=', 'products.id')
+                ->where('carts.transactions_id', '=', $or->id)
+                ->get();
+
+            $or->products = $products;
+        }
+
+
+        $completed = Transaction::all()
 	                            ->where('users_id', '=', Auth::id())
 	                            ->where('status', '=', 'Completed')
 	                            ->where('status', '=', 'Cancelled');
@@ -43,7 +62,10 @@ class TransactionsController extends Controller
 	                         ->where('bought', '=', false);
 
 
-
+	    if ( Auth::user()->role_id === 3 ) {
+	        $transactions = $orders;
+        }
+//dd($transactions);
         return view('shared.transaction', compact('carts', 'transactions', 'completed'));
     }
 
