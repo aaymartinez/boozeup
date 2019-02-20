@@ -32,7 +32,7 @@
                     <star-rating :rating=0 :read-only=true :show-rating=false :star-size=20 active-color="#93201B"></star-rating>
                 @endif
 
-                <div class="price-container mt-2 mb-2 font-weight-bold" cs-data="{{ number_format($product->price,2 ) }}">P <span class="price">{{ number_format($product->price,2) }}</span></div>
+                <div class="price-container mt-2 mb-2 font-weight-bold" cs-data="{{ $product->price }}">P <span class="price">{{ number_format($product->price,2) }}</span></div>
 
                 <form class="form-horizontal text-left">
                     {{ csrf_field() }}

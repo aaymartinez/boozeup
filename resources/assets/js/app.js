@@ -58,7 +58,7 @@ $('.shared-product-details .modal-review-submit').on('click', function (e) {
 $('.shared-product-details .price')
 $('.shared-product-details #quantity').on('change', function () {
    var qty = $(this).val();
-   var base_price = $('.shared-product-details .price-container').attr('cs-data');
+   var base_price = ($('.shared-product-details .price-container').attr('cs-data'));
    var new_price = qty * base_price;
 
    if (qty != '') {
