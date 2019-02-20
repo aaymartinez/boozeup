@@ -1,16 +1,12 @@
 @extends('layouts.landing')
 
 @section('style')
-    /* for help page */
-    .body__help .landing-page {
-        height: auto;
-    }
+
 @endsection
 
-@section('body_class', 'body__help')
+@section('body_class', 'body__landing')
 
 @section('content')
-
     <div class="row login-top-right mb-0 pb-0">
         <a href="/" class="btn cBtn mb-0" style="width: auto;">X</a>
     </div>
@@ -83,5 +79,4 @@
         </form>
 
     </div>
-
 @endsection
