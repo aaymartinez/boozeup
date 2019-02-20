@@ -86,7 +86,8 @@
                                 @endif
                                 <a class="dropdown-item" href="{{ url('transaction') }}">Transactions</a>
 
-                                <a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>
+                                <a class="dropdown-item dup2" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart ({{ $carts->count() }})</a>
+                                {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>--}}
                                 {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>--}}
                                 <a href="{{ route('logout') }}" class="dropdown-item dup2 btn cBtn rounded-0"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

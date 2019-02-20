@@ -246,7 +246,7 @@
                                         <label for="payment_method">Payment Method <span class="required-marker">*</span></label>
                                         <select name="payment_method" id="payment_method" class="form-control" required>
                                             <option value="">-Any-</option>
-                                            {{--<option value="cod">Cash on Delivery</option>--}}
+                                            <option value="cod">Cash on Delivery</option>
                                             <option value="bank_deposit">Bank Deposit</option>
                                             <option value="cc">Credit Card</option>
                                         </select>
@@ -255,7 +255,7 @@
                                                 <strong>{{ $errors->first('payment_method') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="font-italic note">*Cash on Delivery - Soon</div>
+                                        {{--<div class="font-italic note">*Cash on Delivery - Soon</div>--}}
                                     </div>
 
                                     <hr>
