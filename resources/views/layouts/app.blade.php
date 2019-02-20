@@ -68,7 +68,7 @@
 
                     <ul class="navbar-nav">
                         <li class="nav-item dup1">
-                            <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                            <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ({{ $carts->count() }})</a>
                         </li>
                         {{--<li class="nav-item dup1">--}}
                             {{--<a class="nav-link iconRed" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>--}}
