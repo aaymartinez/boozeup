@@ -84,7 +84,7 @@
 
                     <div class="form-group{{ $errors->has('birth_date') ? ' has-error' : '' }} col-md-6">
                         <label for="birth_date">Birthday</label>
-                        <input id="birth_date" type="text" class="form-control" name="birth_date" value="{{ old('birth_date') ? old('birth_date') : date('m/d/Y', strtotime($user->birth_date)) }}" required>
+                        <input id="birth_date" type="text" class="form-control" name="birth_date" value="{{ old('birth_date') ? old('birth_date') : date('m/d/Y') }}" required>
                         @if ($errors->has('birth_date'))
                             <span class="help-block text-danger">
                             <strong>{{ $errors->first('birth_date') }}</strong>
