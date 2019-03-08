@@ -131,10 +131,12 @@ class TransactionsController extends Controller
 	                  ->where('transactions_id', '=', '')
 	                  ->where('bought', '=', false);
 
+//	    dd($carts);
+
 		foreach ($carts as $item) {
-//			$item->transactions_id = $transaction_id;
-//			$item->bought = true;
-//			$item->save();
+		    $item->transactions_id = $transaction_id;
+			$item->bought = true;
+			$item->save();
 
 			$products = Products::where('id', '=', $item->products_id)->firstOrFail();
 			$seller = $products->seller_name_id;
