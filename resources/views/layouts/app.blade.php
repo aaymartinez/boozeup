@@ -32,8 +32,8 @@
                     <img src="{{ asset('images/BoozeUp_Logo_red.png') }}" alt="Booze Up!" class="brand">
                 </a>
 
-                <form class="form-inline search ml-auto mr-2">
-                    <input class="form-control rounded-0 col-sm-10" type="search" placeholder="Search for product, brand, type, seller" aria-label="Search">
+                <form class="form-inline search ml-auto mr-2" method="GET" action="{{ url('/search/') }}">
+                    <input class="form-control rounded-0 col-sm-10" type="search" placeholder="Search for product" aria-label="Search" name="search">
                     <button class="btn rounded-0 col-sm-2" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,8 +41,8 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="form-inline search2 ml-auto mr-2">
-                        <input class="form-control rounded-0 mr-auto col-10 col-md-10" type="search" placeholder="Search for product, brand, type, seller" aria-label="Search">
+                    <form class="form-inline search2 ml-auto mr-2" method="GET" action="{{ url('/search/') }}">
+                        <input class="form-control rounded-0 mr-auto col-10 col-md-10" type="search" placeholder="Search for product" aria-label="Search" name="search">
                         <button class="btn rounded-0 col-2 col-md-1" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                     <ul class="navbar-nav m-auto">

@@ -259,11 +259,7 @@ footer {
   }
 }
 
-.Shared-contact .main,
-.shared-news .main,
-.Shared-about .main,
-.shared-booze .main,
-.shared-products .main
+.main
 {
   padding: 5% 15px;
 }
@@ -285,7 +281,7 @@ footer {
 }
 
 // products
-.shared-products, .Shared-index {
+.shared-products, .Shared-index, .shared-search {
 
   .image {
     height: 200px;

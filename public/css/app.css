@@ -13769,11 +13769,7 @@ footer {
   margin: 0;
 }
 
-.Shared-contact .main,
-.shared-news .main,
-.Shared-about .main,
-.shared-booze .main,
-.shared-products .main {
+.main {
   padding: 5% 15px;
 }
 
@@ -14016,23 +14012,27 @@ footer {
 }
 
 .shared-products .image,
-.Shared-index .image {
+.Shared-index .image,
+.shared-search .image {
   height: 200px;
 }
 
 .shared-products .prb-row .col:nth-of-type(1),
-.Shared-index .prb-row .col:nth-of-type(1) {
+.Shared-index .prb-row .col:nth-of-type(1),
+.shared-search .prb-row .col:nth-of-type(1) {
   padding-left: 0;
   padding-right: 0;
 }
 
 .shared-products .prb-row .col:nth-of-type(2),
-.Shared-index .prb-row .col:nth-of-type(2) {
+.Shared-index .prb-row .col:nth-of-type(2),
+.shared-search .prb-row .col:nth-of-type(2) {
   padding-right: 0;
 }
 
 .shared-products .prb-row .price,
-.Shared-index .prb-row .price {
+.Shared-index .prb-row .price,
+.shared-search .prb-row .price {
   margin-bottom: -5px;
 }
 
