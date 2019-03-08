@@ -171,6 +171,13 @@ nav {
 
   .dup2 {
     display: block;
+    color: #FFFFFF !important;
+    border-top: 1px solid !important;
+  }
+
+  .dup2:hover {
+    color: #000000 !important;
+    cursor: pointer !important;
   }
 }
 

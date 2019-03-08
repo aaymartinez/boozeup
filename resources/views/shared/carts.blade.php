@@ -189,19 +189,15 @@
 
                             <div class="form-row mt-2 mb-2">
 
-                                <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }} col-md-6">
-                                    <label for="barangay">Barangay <span class="required-marker">*</span></label>
-                                    <input id="barangay" type="text" class="form-control" name="barangay" value="{{ old('barangay') }}" required>
-                                    @if ($errors->has('barangay'))
-                                        <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('barangay') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-
                                 <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }} col-md-6">
                                     <label for="city">City <span class="required-marker">*</span></label>
-                                    <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required>
+                                    <select id="city" class="form-control" name="city" value="{{ old('city') }}" required>
+                                        <option value="">--Select--</option>
+                                        <option value="Las Piñas">Las Piñas</option>
+                                        <option value="Muntinlupa">Muntinlupa</option>
+                                        <option value="Parañaque">Parañaque</option>
+                                        <option value="Pasay">Pasay</option>
+                                    </select>
                                     @if ($errors->has('city'))
                                         <span class="help-block text-danger">
                                             <strong>{{ $errors->first('city') }}</strong>
@@ -209,9 +205,25 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }} col-md-6">
+                                    <label for="barangay">Barangay <span class="required-marker">*</span></label>
+                                    <select id="barangay" class="form-control" name="barangay" value="{{ old('barangay') }}" required>
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    @if ($errors->has('barangay'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('barangay') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }} col-md-6">
                                     <label for="province">Province <span class="required-marker">*</span></label>
-                                    <input id="province" type="text" class="form-control" name="province" value="{{ old('province') }}" required>
+                                    <select id="province" class="form-control" name="province" value="{{ old('province') }}" required>
+                                        <option value="">--Select--</option>
+                                        <option value="metro manila">Metro Manila</option>
+                                        <option value="ncr">NCR</option>
+                                    </select>
                                     @if ($errors->has('province'))
                                         <span class="help-block text-danger">
                                             <strong>{{ $errors->first('province') }}</strong>

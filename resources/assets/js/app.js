@@ -290,6 +290,78 @@ $('.alert-modal-sm').on('hidden.bs.modal', function () {
 
 
 /**
- * Hide the menu except profile and
+ * dropdown on cart and edit profile
  * */
+$('.shopping-info #city').on('change', function(e) {
+    cascadeBarangay( '.shopping-info', $(this).val() );
+});
 
+$('.shared-profile-edit #city').on('change', function(e) {
+    cascadeBarangay( '.shared-profile-edit', $(this).val() );
+});
+
+function cascadeBarangay(classname, pick){
+    // place barangay on city
+    var barangay = {
+        'Las Piñas': [
+            'Almanza Uno',
+            'Daniel Fajardo',
+            'Elias Aldana',
+            'Ilaya',
+            'Manuyo Uno',
+            'Pamplona Uno',
+            'Pulang Lupa Uno',
+            'Talon Uno',
+            'Zapote',
+            'Almanza Dos',
+            'C.A.A. - BF International',
+            'Manuyo Dos',
+            'Pamplona Dos',
+            'Pamplona Tres',
+            'Pilar',
+            'Pulang Lupa Dos',
+            'Talon Dos',
+            'Talon Tres',
+            'Talon Kuatro',
+            'Talon Singko',
+        ],
+        'Muntinlupa': [
+            'Alabang',
+            'Ayala',
+            'Bayanan',
+            'Buli',
+            'Cupang',
+            'Poblacion',
+            'Putatan',
+            'Sucat',
+            'Tunasan',
+        ],
+        'Parañaque': [
+            'Baclaran',
+            'Don Galo',
+            'La Huerta',
+            'San Dionisio',
+            'San Isidro',
+            'Sto. Nino',
+            'Tambo',
+            'Vitalez',
+            'BF Homes',
+            'Don Bosco',
+            'Marcelo Green',
+            'Merville',
+            'Moonwalk',
+            'San Antonio',
+            'San Martin de Porres',
+            'Sun Valley',
+        ],
+    };
+
+    if ( pick ) {
+        console.log(barangay[pick]);
+        $(classname + ' #barangay').empty();
+        $(classname + ' #barangay').append('<option value="">--Select--</option>');
+        $.each(barangay[pick], function(key, value) {
+            $(classname + ' #barangay').append('<option value="'+ value +'">' + value + '</option>');
+        });
+    }
+}
