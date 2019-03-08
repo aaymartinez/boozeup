@@ -23,6 +23,7 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "npm": "^6.4.1",
+    "sweetalert2": "^8.2.6",
     "vue-star-rating": "^1.6.0"
   }
 }

@@ -67,9 +67,11 @@
                     </ul>
 
                     <ul class="navbar-nav">
-                        <li class="nav-item dup1">
-                            <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ({{ $carts->count() }})</a>
-                        </li>
+                        @if( Auth::user()->role_id !== 3 )
+                            <li class="nav-item dup1">
+                                <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ({{ $carts->count() }})</a>
+                            </li>
+                        @endif
                         {{--<li class="nav-item dup1">--}}
                             {{--<a class="nav-link iconRed" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>--}}
                         {{--</li>--}}
@@ -80,13 +82,17 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item" href="{{ url('profile') }}">Profile</a>
-                                <a class="dropdown-item" href="{{ url('wishlist') }}">Wishlist</a>
+                                @if( Auth::user()->role_id !== 3 )
+                                    <a class="dropdown-item" href="{{ url('wishlist') }}">Wishlist</a>
+                                @endif
                                 @if( Auth::user()->role_id === 3 )
                                     <a class="dropdown-item" href="{{ url('inventory') }}">Inventory</a>
                                 @endif
                                 <a class="dropdown-item" href="{{ url('transaction') }}">Transactions</a>
 
-                                <a class="dropdown-item dup2" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart ({{ $carts->count() }})</a>
+                                @if( Auth::user()->role_id !== 3 )
+                                    <a class="dropdown-item dup2" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart ({{ $carts->count() }})</a>
+                                @endif
                                 {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>--}}
                                 {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>--}}
                                 <a href="{{ route('logout') }}" class="dropdown-item dup2 btn cBtn rounded-0"

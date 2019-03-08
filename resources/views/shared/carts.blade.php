@@ -105,7 +105,17 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group{{ $errors->has('mobile_number') ? ' has-error' : '' }} col-md-6">
+                                <div class="form-group{{ $errors->has('country_area_code') ? ' has-error' : '' }} col-md-3">
+                                    <label for="country_area_code">Country/Area Code <span class="required-marker">*</span></label>
+                                    <input id="country_area_code" type="text" class="form-control" name="country_area_code" value="{{ old('country_area_code') }}" required>
+                                    @if ($errors->has('country_area_code'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('country_area_code') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group{{ $errors->has('mobile_number') ? ' has-error' : '' }} col-md-3">
                                     <label for="mobile_number">Mobile Number <span class="required-marker">*</span></label>
                                     <input id="mobile_number" type="text" class="form-control" name="mobile_number" value="{{ old('mobile_number') }}" required>
                                     @if ($errors->has('mobile_number'))
@@ -117,6 +127,23 @@
                             </div>
 
                             <hr />
+
+                            <div class="form-row mt-2 mb-2">
+                                <div class="form-group{{ $errors->has('residential_company') ? ' has-error' : '' }} col-md-6">
+                                    <label for="residential_company">Residential or Company <span class="required-marker">*</span></label>
+                                    <select id="residential_company" class="form-control" name="residential_company" value="{{ old('residential_company') }}" required>
+                                        <option value="">--Select--</option>
+                                        <option value="residential">Residential</option>
+                                        <option value="company">Company</option>
+                                    </select>
+
+                                    @if ($errors->has('residential_company'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('residential_company') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-row mt-2 mb-2">
                                 <div class="form-group{{ $errors->has('unit_floor') ? ' has-error' : '' }} col-md-6">
@@ -161,12 +188,13 @@
                             </div>
 
                             <div class="form-row mt-2 mb-2">
-                                <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }} col-md-6">
-                                    <label for="province">Province <span class="required-marker">*</span></label>
-                                    <input id="province" type="text" class="form-control" name="province" value="{{ old('province') }}" required>
-                                    @if ($errors->has('province'))
+
+                                <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }} col-md-6">
+                                    <label for="barangay">Barangay <span class="required-marker">*</span></label>
+                                    <input id="barangay" type="text" class="form-control" name="barangay" value="{{ old('barangay') }}" required>
+                                    @if ($errors->has('barangay'))
                                         <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('province') }}</strong>
+                                            <strong>{{ $errors->first('barangay') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -181,12 +209,12 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }} col-md-6">
-                                    <label for="barangay">Barangay <span class="required-marker">*</span></label>
-                                    <input id="barangay" type="text" class="form-control" name="barangay" value="{{ old('barangay') }}" required>
-                                    @if ($errors->has('barangay'))
+                                <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }} col-md-6">
+                                    <label for="province">Province <span class="required-marker">*</span></label>
+                                    <input id="province" type="text" class="form-control" name="province" value="{{ old('province') }}" required>
+                                    @if ($errors->has('province'))
                                         <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('barangay') }}</strong>
+                                            <strong>{{ $errors->first('province') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -225,7 +253,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('authorized_recipient') ? ' has-error' : '' }} mt-2 mb-2">
-                                <label for="authorized_recipient">Authorized Recipient's Name and Mobile No. <span class="required-marker">*</span></label>
+                                <label for="authorized_recipient">Receiver <span class="required-marker">*</span></label>
                                 <input id="authorized_recipient" type="text" class="form-control" name="authorized_recipient" value="{{ old('authorized_recipient')}}" required>
                                 @if ($errors->has('authorized_recipient'))
                                     <span class="help-block text-danger">
@@ -391,7 +419,7 @@
 
 
                             <div class="text-center mt-4 mb-5 w-100">
-                                <button type="submit" class="btn cBtn rounded-0">SUBMIT</button>
+                                <button type="submit" class="btn cBtn rounded-0 cart-final-btn">SUBMIT</button>
                             </div>
                         </div>
                     </form>
