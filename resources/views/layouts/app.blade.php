@@ -14,14 +14,15 @@
     @yield('add-styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @if(!Auth::user()->is_profile_complete)
-        <script>
-            var loc = location.pathname;
-            if (loc != '/profile') {
-                window.location = "/profile";
-            }
-        </script>
-    @endif
+    {{-- removed as per decdec 01/30/2019 --}}
+    {{--@if(!Auth::user()->is_profile_complete)--}}
+        {{--<script>--}}
+            {{--var loc = location.pathname;--}}
+            {{--if (loc != '/profile') {--}}
+                {{--window.location = "/profile";--}}
+            {{--}--}}
+        {{--</script>--}}
+    {{--@endif--}}
 </head>
 <body class="{{ $view_name }}">
     <div class="container-fluid" id="app">
@@ -31,8 +32,8 @@
                     <img src="{{ asset('images/BoozeUp_Logo_red.png') }}" alt="Booze Up!" class="brand">
                 </a>
 
-                <form class="form-inline search ml-auto mr-2">
-                    <input class="form-control rounded-0 col-sm-10" type="search" placeholder="Search for product, brand, type, seller" aria-label="Search">
+                <form class="form-inline search ml-auto mr-2" method="GET" action="{{ url('/search/') }}">
+                    <input class="form-control rounded-0 col-sm-10" type="search" placeholder="Search for product" aria-label="Search" name="search">
                     <button class="btn rounded-0 col-sm-2" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,8 +41,8 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="form-inline search2 ml-auto mr-2">
-                        <input class="form-control rounded-0 mr-auto col-10 col-md-10" type="search" placeholder="Search for product, brand, type, seller" aria-label="Search">
+                    <form class="form-inline search2 ml-auto mr-2" method="GET" action="{{ url('/search/') }}">
+                        <input class="form-control rounded-0 mr-auto col-10 col-md-10" type="search" placeholder="Search for product" aria-label="Search" name="search">
                         <button class="btn rounded-0 col-2 col-md-1" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                     <ul class="navbar-nav m-auto">
@@ -66,9 +67,11 @@
                     </ul>
 
                     <ul class="navbar-nav">
-                        <li class="nav-item dup1">
-                            <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-                        </li>
+                        @if( Auth::user()->role_id !== 3 )
+                            <li class="nav-item dup1">
+                                <a class="nav-link iconRed" data-toggle="modal" data-target=".cart-modal"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ({{ $carts->count() }})</a>
+                            </li>
+                        @endif
                         {{--<li class="nav-item dup1">--}}
                             {{--<a class="nav-link iconRed" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>--}}
                         {{--</li>--}}
@@ -79,13 +82,18 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item" href="{{ url('profile') }}">Profile</a>
-                                <a class="dropdown-item" href="{{ url('wishlist') }}">Wishlist</a>
+                                @if( Auth::user()->role_id !== 3 )
+                                    <a class="dropdown-item" href="{{ url('wishlist') }}">Wishlist</a>
+                                @endif
                                 @if( Auth::user()->role_id === 3 )
                                     <a class="dropdown-item" href="{{ url('inventory') }}">Inventory</a>
                                 @endif
                                 <a class="dropdown-item" href="{{ url('transaction') }}">Transactions</a>
 
-                                <a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>
+                                @if( Auth::user()->role_id !== 3 )
+                                    <a class="dropdown-item dup2" data-toggle="modal" data-target=".cart-modal">Shopping Cart ({{ $carts->count() }})</a>
+                                @endif
+                                {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>--}}
                                 {{--<a class="dropdown-item dup2" href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>--}}
                                 <a href="{{ route('logout') }}" class="dropdown-item dup2 btn cBtn rounded-0"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

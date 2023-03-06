@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth:api']], function(){
 
 	Route::post('/auth/change-password', 'API\PassportController@changePassword');
 	Route::apiResource('/user', 'API\UserController');
+    Route::post('/imageUpload', 'API\UserController@uploadPhoto');
 	Route::apiResource('/boozetype', 'API\BoozeTypesController');
 	Route::apiResource('/carts', 'API\CartsController');
 	Route::apiResource('/news', 'API\NewsController');

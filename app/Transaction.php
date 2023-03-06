@@ -18,7 +18,7 @@ class Transaction extends Model
 		// payment
 		'users_id', 'status', 'subtotal', 'delivery_fee', 'total_amount', 'payment_method', 'cc_type', 'cc_number', 'cc_expiry',
 		// basic info
-		'first_name', 'last_name', 'email', 'mobile_number',
+		'first_name', 'last_name', 'email', 'mobile_number', 'residential_company', 'country_area_code',
 		// address
 		'unit_floor', 'building', 'street', 'subdivision', 'barangay', 'city', 'province', 'zip', 'company_name',
 		'landmarks', 'authorized_recipient',
@@ -30,5 +30,10 @@ class Transaction extends Model
 	 * @var array
 	 */
 	protected $hidden = [];
+
+    function carts() {
+        return $this->hasMany(Carts::class, 'transactions_id');
+    }
+
 
 }

@@ -84,7 +84,7 @@
 
                     <div class="form-group{{ $errors->has('birth_date') ? ' has-error' : '' }} col-md-6">
                         <label for="birth_date">Birthday</label>
-                        <input id="birth_date" type="text" class="form-control" name="birth_date" value="{{ old('birth_date') ? old('birth_date') : date('m/d/Y', strtotime($user->birth_date)) }}" required>
+                        <input id="birth_date" type="text" class="form-control" name="birth_date" value="{{ old('birth_date') ? old('birth_date') : date('m/d/Y') }}" required>
                         @if ($errors->has('birth_date'))
                             <span class="help-block text-danger">
                             <strong>{{ $errors->first('birth_date') }}</strong>
@@ -154,19 +154,16 @@
             </div>
 
             <div class="form-row mt-2 mb-2">
-                <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }} col-md-6">
-                    <label for="province">Province</label>
-                    <input id="province" type="text" class="form-control" name="province" value="{{ (old('province')) ? old('province') : $user->province }}" required>
-                    @if ($errors->has('province'))
-                        <span class="help-block text-danger">
-                        <strong>{{ $errors->first('province') }}</strong>
-                    </span>
-                    @endif
-                </div>
 
                 <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }} col-md-6">
                     <label for="city">City</label>
-                    <input id="city" type="text" class="form-control" name="city" value="{{ (old('city')) ? old('city') : $user->city }}" required>
+                    <select id="city" class="form-control" name="city" value="{{ (old('city')) ? old('city') : $user->city }}" required>
+                        <option value="">--Select--</option>
+                        <option value="Las Piñas">Las Piñas</option>
+                        <option value="Muntinlupa">Muntinlupa</option>
+                        <option value="Parañaque">Parañaque</option>
+                        <option value="Pasay">Pasay</option>
+                    </select>
                     @if ($errors->has('city'))
                         <span class="help-block text-danger">
                         <strong>{{ $errors->first('city') }}</strong>
@@ -176,13 +173,31 @@
 
                 <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }} col-md-6">
                     <label for="barangay">Barangay</label>
-                    <input id="barangay" type="text" class="form-control" name="barangay" value="{{ (old('barangay')) ? old('barangay') : $user->barangay }}" required>
+                    <select id="barangay" class="form-control" name="barangay" value="{{ (old('barangay')) ? old('barangay') : $user->barangay }}" required>
+                        <option value="">--Select--</option>
+                    </select>
                     @if ($errors->has('barangay'))
                         <span class="help-block text-danger">
                         <strong>{{ $errors->first('barangay') }}</strong>
                     </span>
                     @endif
                 </div>
+
+
+                <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }} col-md-6">
+                    <label for="province">Province</label>
+                    <select id="province" class="form-control" name="province" value="{{ (old('province')) ? old('province') : $user->province }}" required>
+                        <option value="">--Select--</option>
+                        <option value="metro manila">Metro Manila</option>
+                        <option value="ncr">NCR</option>
+                    </select>
+                    @if ($errors->has('province'))
+                        <span class="help-block text-danger">
+                        <strong>{{ $errors->first('province') }}</strong>
+                    </span>
+                    @endif
+                </div>
+
 
                 <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }} col-md-6">
                     <label for="zip">Zip Code</label>

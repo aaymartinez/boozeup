@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 $ = require('jquery');
+Swal = require('sweetalert2');
 
 
 /**
@@ -58,7 +59,7 @@ $('.shared-product-details .modal-review-submit').on('click', function (e) {
 $('.shared-product-details .price')
 $('.shared-product-details #quantity').on('change', function () {
    var qty = $(this).val();
-   var base_price = $('.shared-product-details .price-container').attr('cs-data');
+   var base_price = ($('.shared-product-details .price-container').attr('cs-data'));
    var new_price = qty * base_price;
 
    if (qty != '') {
@@ -117,27 +118,47 @@ $('.cart-modal form[id^="delete-form-"] .delete-cart-item').on('click', function
     var method = $(this).closest('form').find('input[name="_method"]').val();
     var id =  $(this).closest('form').find('#item').val();
 
-    $.ajax({
-        type: 'DELETE',
-        url: '../carts/'+id,
-        dataType: 'JSON',
-        data: {
-            '_token': token,
-            '_method': method,
-            'id': id,
-        },
-        success: function (data) {
-            alert(data['message']);
-            location.reload();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            );
+
+            $.ajax({
+                type: 'DELETE',
+                url: '../carts/'+id,
+                dataType: 'JSON',
+                data: {
+                    '_token': token,
+                    '_method': method,
+                    'id': id,
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            });
         }
-    });
+    })
+
+
+
 });
 
 $('.cart-checkout').click(function() {
     $('.modal-title').html('SHIPPING INFO');
     $('.carts').hide();
     $('.shopping-info').show();
-
 });
 
 $('.shopping-continue').click(function() {
@@ -191,6 +212,15 @@ $('#payment_method').change(function() {
     }
 });
 
+$('.cart-final-btn').click(function(){
+    if ( $('#payment_method').val() ) {
+        Swal.fire({
+            type: 'success',
+            title: 'Your order has been listed in transactions!',
+        })
+    }
+});
+
 function addToCartWishlist(object, url) {
     var token = object.closest('form').find('input[name="_token"]').val();
     var qtn = object.closest('form').find('#quantity').val();
@@ -225,8 +255,30 @@ function addToCartWishlist(object, url) {
  * */
 //delete product
 $('.delete-x').on('click', function () {
-   var id = $(this).attr('cb-data');
-   $('#delete-form-'+id).submit();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+
+            var id = $(this).attr('cb-data');
+            $('#delete-form-'+id).submit();
+
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
+
+
 });
 
 /**
@@ -238,6 +290,78 @@ $('.alert-modal-sm').on('hidden.bs.modal', function () {
 
 
 /**
- * Hide the menu except profile and
+ * dropdown on cart and edit profile
  * */
+$('.shopping-info #city').on('change', function(e) {
+    cascadeBarangay( '.shopping-info', $(this).val() );
+});
 
+$('.shared-profile-edit #city').on('change', function(e) {
+    cascadeBarangay( '.shared-profile-edit', $(this).val() );
+});
+
+function cascadeBarangay(classname, pick){
+    // place barangay on city
+    var barangay = {
+        'Las Piñas': [
+            'Almanza Uno',
+            'Daniel Fajardo',
+            'Elias Aldana',
+            'Ilaya',
+            'Manuyo Uno',
+            'Pamplona Uno',
+            'Pulang Lupa Uno',
+            'Talon Uno',
+            'Zapote',
+            'Almanza Dos',
+            'C.A.A. - BF International',
+            'Manuyo Dos',
+            'Pamplona Dos',
+            'Pamplona Tres',
+            'Pilar',
+            'Pulang Lupa Dos',
+            'Talon Dos',
+            'Talon Tres',
+            'Talon Kuatro',
+            'Talon Singko',
+        ],
+        'Muntinlupa': [
+            'Alabang',
+            'Ayala',
+            'Bayanan',
+            'Buli',
+            'Cupang',
+            'Poblacion',
+            'Putatan',
+            'Sucat',
+            'Tunasan',
+        ],
+        'Parañaque': [
+            'Baclaran',
+            'Don Galo',
+            'La Huerta',
+            'San Dionisio',
+            'San Isidro',
+            'Sto. Nino',
+            'Tambo',
+            'Vitalez',
+            'BF Homes',
+            'Don Bosco',
+            'Marcelo Green',
+            'Merville',
+            'Moonwalk',
+            'San Antonio',
+            'San Martin de Porres',
+            'Sun Valley',
+        ],
+    };
+
+    if ( pick ) {
+        console.log(barangay[pick]);
+        $(classname + ' #barangay').empty();
+        $(classname + ' #barangay').append('<option value="">--Select--</option>');
+        $.each(barangay[pick], function(key, value) {
+            $(classname + ' #barangay').append('<option value="'+ value +'">' + value + '</option>');
+        });
+    }
+}

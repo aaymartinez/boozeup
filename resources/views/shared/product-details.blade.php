@@ -32,38 +32,40 @@
                     <star-rating :rating=0 :read-only=true :show-rating=false :star-size=20 active-color="#93201B"></star-rating>
                 @endif
 
-                <div class="price-container mt-2 mb-2 font-weight-bold" cs-data="{{ number_format($product->price,2 ) }}">P <span class="price">{{ number_format($product->price,2) }}</span></div>
+                <div class="price-container mt-2 mb-2 font-weight-bold" cs-data="{{ $product->price }}">P <span class="price">{{ number_format($product->price,2) }}</span></div>
 
-                <form class="form-horizontal text-left">
-                    {{ csrf_field() }}
-                    <input type="hidden" id="price" value="{{ $product->price }}">
-                    <input type="hidden" id="user_id" value="{{ $user_id }}">
-                    <input type="hidden" id="product_id" value="{{ $product->id }}">
+                @if( Auth::user()->role_id !== 3 )
+                    <form class="form-horizontal text-left">
+                        {{ csrf_field() }}
+                        <input type="hidden" id="price" value="{{ $product->price }}">
+                        <input type="hidden" id="user_id" value="{{ $user_id }}">
+                        <input type="hidden" id="product_id" value="{{ $product->id }}">
 
-                    <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
-                        <label for="quantity" class="font-weight-bold">Quantity</label>
-                        <select name="quantity" id="quantity" class="form-control" required>
-                            <option value="">-Select-</option>
-                            @foreach($qty as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('quantity'))
-                            <span class="help-block text-danger">
-                                <strong>{{ $errors->first('quantity') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-6 pl-0">
-                            <button type="button" class="btn cBtn w-100 rounded-0" id="cartBtn">ADD TO CART</button>
+                        <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
+                            <label for="quantity" class="font-weight-bold">Quantity</label>
+                            <select name="quantity" id="quantity" class="form-control" required>
+                                <option value="">-Select-</option>
+                                @foreach($qty as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('quantity'))
+                                <span class="help-block text-danger">
+                                    <strong>{{ $errors->first('quantity') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="col-md-6 pr-0">
-                            <button type="button" class="btn cBtn w-100 rounded-0" id="wishlistBtn">ADD TO WISHLIST</button>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 pl-0">
+                                <button type="button" class="btn cBtn w-100 rounded-0" id="cartBtn">ADD TO CART</button>
+                            </div>
+                            <div class="col-md-6 pr-0">
+                                <button type="button" class="btn cBtn w-100 rounded-0" id="wishlistBtn">ADD TO WISHLIST</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
 
@@ -76,9 +78,12 @@
 
         <div class="row mt-5 justify-content-between r-header">
             <h3>{{ $product->ratings->count() }} Reviews</h3>
-            <button type="button" class="btn cBtn rounded-0" data-toggle="modal" data-target="#reviewModal">
-                WRITE A REVIEW
-            </button>
+
+            @if( Auth::user()->role_id !== 3 )
+                <button type="button" class="btn cBtn rounded-0" data-toggle="modal" data-target="#reviewModal">
+                    WRITE A REVIEW
+                </button>
+            @endif
         </div>
         <div class="mt-3 mb-5">
             @foreach( $product->ratings as $item )
