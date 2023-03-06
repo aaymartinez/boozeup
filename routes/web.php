@@ -41,13 +41,10 @@ Route::post('/ageCheck', 'LandingController@ageChecker');
 	Route::post('/change-password', 'Shared\ProfileController@change_password');
 	Route::resource('/wishlist', 'Shared\WishlistController');
 	Route::resource('/transaction', 'Shared\TransactionsController');
-	Route::get('/search', 'Shared\SearchController@index');
 
 	if (Auth::user() != 2 ) {
 		Route::resource('/inventory', 'Shared\InventoryController');
 	}
-
-
 
 });
 

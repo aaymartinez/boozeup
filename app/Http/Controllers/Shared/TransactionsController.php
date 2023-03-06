@@ -4,14 +4,9 @@ namespace App\Http\Controllers\Shared;
 
 use App\Carts;
 use App\Http\Controllers\Controller;
-use App\Mail\EmptyInventoryItem;
-use App\Products;
 use App\Transaction;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class TransactionsController extends Controller
 {
@@ -22,41 +17,8 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        $transactions = DB::table('transactions')
-            ->where('transactions.users_id', '=', Auth::id())
-            ->get();
-
-        // get correct product list
-        foreach ($transactions as $trans) {
-            $products = DB::table('products')
-                ->select('products.*', 'carts.quantity')
-                ->join('carts', 'carts.products_id', '=', 'products.id')
-                ->where('carts.transactions_id', '=', $trans->id)
-                ->get();
-
-            $trans->products = $products;
-        }
-
-
-        // shop orders
-        $orders = DB::table('user_order')
-            ->where('seller_name_id', '=', Auth::id())
-            ->groupBy('id')
-            ->get();
-
-        // get correct product list
-        foreach ($orders as $or) {
-            $products = DB::table('products')
-                ->select('products.*', 'carts.quantity')
-                ->join('carts', 'carts.products_id', '=', 'products.id')
-                ->where('carts.transactions_id', '=', $or->id)
-                ->get();
-
-            $or->products = $products;
-        }
-
-
-        $completed = Transaction::all()
+    	$transactions = Transaction::all()->where('users_id', '=', Auth::id());
+	    $completed = Transaction::all()
 	                            ->where('users_id', '=', Auth::id())
 	                            ->where('status', '=', 'Completed')
 	                            ->where('status', '=', 'Cancelled');
@@ -65,11 +27,6 @@ class TransactionsController extends Controller
 	                         ->where('transactions_id', '=', '')
 	                         ->where('bought', '=', false);
 
-
-	    if ( Auth::user()->role_id === 3 ) {
-	        $transactions = $orders;
-        }
-//dd($transactions);
         return view('shared.transaction', compact('carts', 'transactions', 'completed'));
     }
 
@@ -131,22 +88,10 @@ class TransactionsController extends Controller
 	                  ->where('transactions_id', '=', '')
 	                  ->where('bought', '=', false);
 
-//	    dd($carts);
-
 		foreach ($carts as $item) {
-		    $item->transactions_id = $transaction_id;
+			$item->transactions_id = $transaction_id;
 			$item->bought = true;
 			$item->save();
-
-			$products = Products::where('id', '=', $item->products_id)->firstOrFail();
-			$seller = $products->seller_name_id;
-			$diff = ( ($products->quantity) - ($item->quantity) > 0 ) ? ($products->quantity) - ($item->quantity) : 0;
-			$products->quantity = $diff;
-			$products->save();
-
-			if ($diff < 1) {
-                $this->sendMail($seller, $products);
-            }
 		}
 
 	    return redirect('./transaction')
@@ -205,14 +150,5 @@ class TransactionsController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
-    }
-
-    function sendMail($seller_id, $product) {
-        // get seller email
-        $seller = User::where('id', '=', $seller_id)->firstOrFail();
-//dd($seller->email);
-
-        Mail::to($seller->email)
-            ->send(new EmptyInventoryItem($product));
     }
 }

@@ -31,9 +31,7 @@ class CreateTransactionsTable extends Migration
 	        $table->string('first_name')->nullable();
 	        $table->string('last_name')->nullable();
 	        $table->string('email')->nullable();
-	        $table->string('country_area_code')->nullable();
 	        $table->string('mobile_number')->nullable();
-	        $table->string('residential_company')->nullable();
 
 	        // address
 	        $table->string('unit_floor')->nullable();

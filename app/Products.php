@@ -25,6 +25,7 @@ class Products extends Model
 	 */
 	protected $hidden = [];
 
+
 	function booze_type() {
 		return $this->belongsTo( BoozeTypes::class );
 	}
@@ -36,7 +37,6 @@ class Products extends Model
 	function ratings() {
 		return $this->hasMany(ProductRating::class);
 	}
-
 
 
 }

@@ -46,32 +46,6 @@
 
                                 <div><span class="font-weight-bold">STATUS :</span> {{ $transaction->status }}</div>
                                 <div class="amount"><span class="font-weight-bold">AMOUNT :</span> P {{ number_format($transaction->total_amount, 2) }}</div>
-
-                                {{-- collapse --}}
-                                <button class="btn cBtn rounded-0" type="button" data-toggle="collapse" data-target="#collapseProducts-{{ $transaction->id }}" aria-expanded="false" aria-controls="collapseExample">
-                                        Product(s)
-                                </button>
-                                <div class="collapse" id="collapseProducts-{{ $transaction->id }}">
-                                    <div class="card card-body">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Product Name</th>
-                                                    <th scope="col">Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach( $transaction->products as $p )
-                                                    <tr>
-                                                        <td>{{ $p->title }}</td>
-                                                        <td>{{ $p->quantity }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
                             </div>
 
                             <div class="col-md-6 text-center">
@@ -84,7 +58,7 @@
                         </div>
                         <hr>
 
-                         {{--modal--}}
+                        {{-- modal --}}
                         <div class="modal fade" id="approveOption-{{ $transaction->id }}" tabindex="-1" role="dialog" aria-labelledby="approveOptionLabel-{{ $transaction->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

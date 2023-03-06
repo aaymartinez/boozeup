@@ -171,13 +171,6 @@ nav {
 
   .dup2 {
     display: block;
-    color: #FFFFFF !important;
-    border-top: 1px solid !important;
-  }
-
-  .dup2:hover {
-    color: #000000 !important;
-    cursor: pointer !important;
   }
 }
 
@@ -266,7 +259,11 @@ footer {
   }
 }
 
-.main
+.Shared-contact .main,
+.shared-news .main,
+.Shared-about .main,
+.shared-booze .main,
+.shared-products .main
 {
   padding: 5% 15px;
 }
@@ -288,7 +285,7 @@ footer {
 }
 
 // products
-.shared-products, .Shared-index, .shared-search {
+.shared-products, .Shared-index {
 
   .image {
     height: 200px;

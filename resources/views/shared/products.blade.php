@@ -38,9 +38,7 @@
 
                             </div>
                             <div class="col">
-                                @if( Auth::user()->role_id !== 3 )
-                                    <a href="{{ url('/products/'.$item->id) }}" class="btn cBtn rounded-0">BUY NOW</a>
-                                @endif
+                                <a href="{{ url('/products/'.$item->id) }}" class="btn cBtn rounded-0">BUY NOW</a>
                             </div>
                         </div>
                     </div>

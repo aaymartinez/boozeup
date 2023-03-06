@@ -44,9 +44,9 @@
             padding: 0;
         }
 
-        /*.content {*/
-            /*height: 100%;*/
-        /*}*/
+        .content {
+            height: 100%;
+        }
 
         .btn {
             cursor: pointer;
@@ -73,9 +73,9 @@
             background: #FFFFFF;
             text-align: center;
             color: #000000;
-            min-height: 100vh;
+            min-height: 100%;
             width: 100%;
-            /*padding-bottom: 10em;*/
+            padding-bottom: 10rem;
         }
 
         .right .login-top-right, .right .login-x-top-right {
@@ -117,11 +117,11 @@
         .lp-footer {
             background: #000000;
             color: #FFFFFF;
-            /*position: absolute;*/
+            position: absolute;
+            right: 0;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70px;
         }
 
 

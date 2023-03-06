@@ -20,7 +20,7 @@ class User extends Authenticatable
         'email', 'password',
 	    'role_id', 'shop_name', 'first_name', 'last_name', 'mobile_number', 'birth_date', 'gender',
 	    'unit_floor', 'building', 'street', 'subdivision', 'barangay', 'city', 'province', 'zip',
-	    'company_name', 'landmarks', 'authorized_recipient', 'is_profile_complete', 'id_verification', 'api_token',
+	    'company_name', 'landmarks', 'authorized_recipient', 'is_profile_complete', 'id_verification',
     ];
 
     /**

@@ -78,7 +78,7 @@ class PassportController extends Controller
 			$user = User::create($input);
 
 			$success['token'] = $user->createToken('BoozeUp')->accessToken;
-    
+
 			return response()->json(['success'=>$success], $this->successStatus);
 
 		} catch (\Exception $e) {

@@ -43,12 +43,11 @@ class LoginController extends Controller
 			return redirect('/admin/user');
 		} else {
 
-		    // removed as per decdec 01/30/2019
-			// if (!$user->is_profile_complete) {
-			//	return redirect('/profile');
-			// } else {
-                return redirect('/index');
-			//}
+			if (!$user->is_profile_complete) {
+				return redirect('/profile');
+			} else {
+				return redirect('/index');
+			}
 
 		}
 	}
